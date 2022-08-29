@@ -22,4 +22,5 @@ class BrandColors {
   static const Color colorPurple = Color(0xFF8F73F8);
   static const Color yellow = Color(0xffECA820);
   static const Color snackBarColor = Colors.indigo;
+
 }

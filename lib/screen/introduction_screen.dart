@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:vcourse/widget/brand_color.dart';
+import 'package:vcourse/screen/discover_screen.dart';
 
 import '../widget/custom_button.dart';
 class IntroductionScreen extends StatefulWidget {
@@ -109,25 +110,31 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                  SizedBox(height: 10),
                  Padding(
                    padding: const EdgeInsets.all(10.0),
-                   child: Text(
-                     "Explore all our courses",
-                     style: GoogleFonts.nunito(
-                       textStyle: TextStyle(
-                         color: BrandColors.colorText,
-                         fontSize: 18.sp,
+                   child: GestureDetector(
+                     onTap: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>DiscoverScreen()));
+
+                     },
+                     child: Text(
+                       "Explore all our courses",
+                       style: GoogleFonts.nunito(
+                         textStyle: TextStyle(
+                           color: BrandColors.colorText,
+                           fontSize: 18.sp,
+
+                         ),
+                         shadows: [
+                           Shadow(
+                               color: Colors.black,
+                               offset: Offset(0, -5))
+                         ],
+                         color: Colors.transparent,
+                         decoration:
+                         TextDecoration.underline,
+                         decorationColor: Colors.black,
+                         decorationThickness: 2,
 
                        ),
-                       shadows: [
-                         Shadow(
-                             color: Colors.black,
-                             offset: Offset(0, -5))
-                       ],
-                       color: Colors.transparent,
-                       decoration:
-                       TextDecoration.underline,
-                       decorationColor: Colors.black,
-                       decorationThickness: 2,
-
                      ),
                    ),
                  ),
