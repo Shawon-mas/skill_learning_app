@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 class CustomButton extends StatelessWidget {
   final Color buttonColor;
@@ -20,7 +21,7 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(value, style: GoogleFonts.nunito(
             fontWeight: FontWeight.w600,
-            fontSize: 18,
+            fontSize: 18.sp,
             color: Colors.white,
         ),
         ),

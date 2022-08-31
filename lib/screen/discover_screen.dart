@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
+import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/models/courses.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_container.dart';
 
@@ -29,11 +29,17 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   static List<Courses> courseList = [
     Courses(
-        'How to Write an Effective Research Paper', 'assets/images/three.jpg', 'Md. Mehedi Hassan', 'assets/images/instructor_three.jpg', 0, 6, 0),
+        'How to Write an Effective Research Paper', 'assets/images/three.jpg', 'Md. Mehedi Hassan',
+        'assets/images/instructor_three.jpg', 0, 6, 0,'CEO & Instructor',discoverLessonIcon,discoverHoursIcon),
+
     Courses('WordPress BootCamp', 'assets/images/one.jpg', 'Jarif Huda Angon',
-        'assets/images/instructor_one.png', 850, 15, 0),
+        'assets/images/instructor_one.png', 50, 15, 0,'CTO & Instructor',discoverLessonIcon,discoverHoursIcon),
+
     Courses('Graphic & UI/UX Design', 'assets/images/two.jpg', 'Ishtiuq Ahmed',
-        'assets/images/instructor_two.jpg', 1999, 6, 0)
+        'assets/images/instructor_two.jpg', 999, 6, 0,'Instructor',discoverLessonIcon,discoverHoursIcon),
+    Courses(
+        'How to Write an Effective Research Paper', 'assets/images/three.jpg', 'Md. Mehedi Hassan',
+        'assets/images/instructor_three.jpg', 1000, 6, 0,'CEO & Instructor',discoverLessonIcon,discoverHoursIcon),
   ];
 
   List<Widget> bodies = [
@@ -157,7 +163,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Container(
             width: double.maxFinite,
-            height: 300,
+            height: 330.h,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
@@ -170,51 +176,128 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+
                         children: [
-                          Image.asset(
-                            course.courseImage.toString(),
-                            fit: BoxFit.cover,
-                            height: 180,
+                          Flexible(
+                            flex: 5,
+                            fit:FlexFit.loose,
+                            child: Image.asset(
+                              course.courseImage.toString(),
+                              fit: BoxFit.cover,
+                              height: 180,
+                            ),
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              course.courseName.toString(),
-                              style: const TextStyle(fontSize: 15),
+                          Flexible(
+                            flex: 1,
+                            fit:FlexFit.loose,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                course.courseName.toString(),
+                                style: GoogleFonts.nunito(
+                                  fontSize: 16.sp,
+                                  color:BrandColors.colorText,
+                                    fontWeight: FontWeight.w600
+                                ),
+                              ),
                             ),
                           ),
-                          Padding(
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Flexible(
+                            flex: 1,
+                            fit:FlexFit.loose,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircleAvatar(
+                                    radius: 20,
+                                    backgroundImage: AssetImage(
+                                        course.courseIntstructorImage.toString()),
+                                  ),
+                                  SizedBox(width: 10.w,),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('${course.courseIntstructor}',style: GoogleFonts.nunito(
+                                        fontSize: 14.sp,
+                                        color: BrandColors.colorTextBlue,
+                                        fontWeight: FontWeight.w400
+                                      ),),
+                                      Text('${course.courseIntstructorDesgination}',style: GoogleFonts.nunito(
+                                          fontSize: 12.sp,
+                                          color: BrandColors.colorTextBlue,
+                                          fontWeight: FontWeight.w400
+                                      ),),
+                                    ],
+                                  ),
+                                  Text(
+                                    '৳${course.coursePrice.toString()}',
+                                    style: GoogleFonts.nunito(
+                                        decoration: TextDecoration.lineThrough,
+                                        fontSize: 12.sp,
+                                        color: BrandColors.colorTextBlue,
+                                        fontWeight: FontWeight.w400
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+
+
+                          /*Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  radius: 20,
-                                  backgroundImage: AssetImage(
-                                      course.courseIntstructorImage.toString()),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${course.courseIntstructor}'),
-                                    Text('${course.courseIntstructor}'),
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children:<Widget>
+                              [
+                                Row(
+                                  children:
+                                  [
+                                    SvgPicture.asset(course.lessonImage.toString(),
+                                    height: 15.h,),
+                                    SizedBox(width: 5.w,),
+                                    Text('${course.courseLesson} lesson',style: GoogleFonts.nunito(
+                                        fontSize: 12.sp,
+                                        color: BrandColors.colorTextBlue,
+                                        fontWeight: FontWeight.w400
+                                    ),),
+
                                   ],
                                 ),
-                              SizedBox(width: 90,),
-                                Text(
-                                  '৳${course.coursePrice.toString()}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
+
+                                Row(
+                                  children:<Widget>
+                                  [
+                                    SvgPicture.asset(course.hoursImage.toString(),
+                                      height: 15.h,),
+                                    SizedBox(width: 5.w,),
+                                    Text('${course.courseDuration} hours',style: GoogleFonts.nunito(
+                                        fontSize: 12.sp,
+                                        color: BrandColors.colorTextBlue,
+                                        fontWeight: FontWeight.w400
+                                    ),),
+
+                                  ],
                                 ),
                               ],
                             ),
-                          ),
+                          )*/
                         ],
                       ),
                     ),
+
                   );
                 }),
           ),
@@ -244,7 +327,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         backgroundColor: Colors.white,
       ),
       body: Container(
-        color: BrandColors.colorBackground,
+        color: BrandColors.bgColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -288,16 +371,33 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         ),
       );
 /*
-  Padding(
+   Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            course.courseImage.toString(),
+                            fit: BoxFit.cover,
+                            height: 180,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              course.courseName.toString(),
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ),
+                          Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-
                                 CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: AssetImage(course.courseIntstructorImage.toString()),
+                                  radius: 20,
+                                  backgroundImage: AssetImage(
+                                      course.courseIntstructorImage.toString()),
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,30 +406,17 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                     Text('${course.courseIntstructor}'),
                                   ],
                                 ),
+
                                 Text(
                                   '৳${course.coursePrice.toString()}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
-
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-
-                              children: [
-                                Text(
-                                  '${course.courseLesson.toString()} Lessons',
-                                  style: const TextStyle(color: Colors.blue),
-                                ),
-                                Text(
-                                  '${course.courseLesson.toString()} Lessons',
-                                  style: const TextStyle(color: Colors.blue),
-                                ),
-                              ],
-                            ),
-                          )
+                        ],
+                      )
    */
 
 }

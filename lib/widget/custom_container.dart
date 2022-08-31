@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vcourse/widget/brand_color.dart';
+
 class CustomContainer extends StatelessWidget {
 
   final String? value;
@@ -15,8 +17,8 @@ class CustomContainer extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 40,
-        width: 150,
+        height: 40.h,
+        width: 150.w,
 
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), // <= No more error here :)
@@ -24,7 +26,7 @@ class CustomContainer extends StatelessWidget {
         ),
         child: Center(
           child: Text(value!,style: GoogleFonts.nunito(
-            color: BrandColors.colorWhite,
+            color: BrandColors.bgColor,
 
           ),),
         ),
