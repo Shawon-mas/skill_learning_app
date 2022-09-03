@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 
@@ -112,7 +114,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                    padding: const EdgeInsets.all(10.0),
                    child: GestureDetector(
                      onTap: (){
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>DiscoverScreen()));
+                     //  Navigator.push(context, MaterialPageRoute(builder: (context)=>DiscoverScreen()));
+                       Get.toNamed(discover);
 
                      },
                      child: Text(

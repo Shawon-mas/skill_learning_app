@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/discover_screen.dart';
+import 'package:vcourse/screen/test.dart';
 import 'package:vcourse/widget/brand_color.dart';
 
 import 'introduction_screen.dart';
@@ -20,7 +23,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   _navigatetointroduction() async{
     await Future.delayed(Duration(milliseconds: 2500),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>DiscoverScreen()));
+  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TestFile()));
+     Get.offNamed(discover);
+
 
   }
 

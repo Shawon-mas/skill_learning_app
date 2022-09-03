@@ -1,11 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vcourse/screen/discover_screen.dart';
+import 'package:get/get.dart';
+import 'package:vcourse/routes/routes.dart';
+import 'package:device_preview/device_preview.dart';
 
-import 'package:vcourse/screen/splash_screen.dart';
+
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(), // Wrap your app
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,9 +28,14 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
+          useInheritedMediaQuery: true,
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          initialRoute: splash,
           debugShowCheckedModeBanner: false,
-          home: DiscoverScreen(),
+          getPages: pages,
+         // home: SplashScreen(),
         );
       },
     );
