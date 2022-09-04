@@ -1,52 +1,255 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
-import 'package:vcourse/models/courses.dart';
+import 'package:vcourse/constants/text_strings.dart';
+import 'package:vcourse/screen/test.dart';
 import 'package:vcourse/widget/brand_color.dart';
+import 'package:vcourse/widget/custom_button.dart';
+import 'package:vcourse/widget/primary_button.dart';
 import 'package:vcourse/widget/primary_toolbar.dart';
+import 'package:video_player/video_player.dart';
+import 'package:better_player/better_player.dart';
+
+
 
 class CourseDetails extends StatefulWidget {
-  final String courseName;
-  const CourseDetails({Key? key, required this.courseName}) : super(key: key);
+  final String courseName, courseInstructor, courseVideo, coursePrice,courseDisCount,courseImage;
+
+  const CourseDetails(
+      {Key? key,
+      required this.courseName,
+      required this.courseInstructor,
+      required this.courseVideo,
+      required this.coursePrice,
+        required this.courseDisCount, required this.courseImage})
+      : super(key: key);
 
   @override
   State<CourseDetails> createState() => _CourseDetailsState();
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
+  late BetterPlayerController _betterPlayerController;
+  final bool isLogging=false;
 
-
+  @override
+  void initState() {
+    super.initState();
+    BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
+        BetterPlayerDataSourceType.network,
+        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
+    _betterPlayerController = BetterPlayerController(
+        BetterPlayerConfiguration(),
+        betterPlayerDataSource: betterPlayerDataSource);
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: CustomToolbar(value: "Course",),
+      backgroundColor: BrandColors.bgColor,
+      appBar: CustomToolbar(
+        value: "Course",
+      ),
       body: Column(
         children: [
-        Container(
-        width: double.maxFinite,
-        height: 150.h,
-        color: Colors.white,
-        child: Column(
-            children: [
-            Text(
-              widget.courseName,
-                 style: GoogleFonts.nunito(
-            fontSize: 14.sp,
-            color: BrandColors.colorText,
-            fontWeight: FontWeight.w600
-        ),
-            )
+          Container(
+            width: double.maxFinite,
+            height: 150.h,
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 7.h,
+                  ),
+                  Text(
+                    widget.courseName,
+                    style: GoogleFonts.nunito(
+                        fontSize: 18.sp,
+                        color: BrandColors.colorText,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(
+                    height: 7.h,
+                  ),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(widget.courseVideo),
+                        // AssetImage('assets/images/instructor_three.jpg'),
+                        backgroundColor: Colors.transparent,
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Created by',
+                            style: GoogleFonts.nunito(
+                                fontSize: 12.sp,
+                                color: BrandColors.colorTextBlue,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            widget.courseInstructor,
+                            style: GoogleFonts.nunito(
+                                fontSize: 14.sp,
+                                color: BrandColors.colorTextBlue,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            height: 180.h,
+            width: 323.w,
+            child: Stack(
+              alignment: Alignment.topCenter,
+              clipBehavior: Clip.none,
+              children: [
+
+                Positioned(
+                  top: -50,
+                  child:
+                  widget.courseVideo.toString().isEmpty?
+                  Container(color: Colors.black,
+                    height: 180.h,
+                    width: 323.w,
+                     decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(widget.courseImage),
+                            fit: BoxFit.cover)
+                     ),
+                  ):
+                  Container(
+                              color: Colors.black,
+                            height: 180.h,
+                             width: 323.w,
+                             child: TestFile(videoPlayerController: VideoPlayerController.network(widget.courseVideo),looping: false,),
+
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Row(
+
+              children: [
+                Text(
+                  '৳${widget.coursePrice}',
+                  style: GoogleFonts.nunito(
+                      fontSize: 18.sp,
+                      color: BrandColors.colorText,
+                      fontWeight: FontWeight.w700),
+                ),
+                Spacer(),
+                Text(
+                  '${widget.courseDisCount}% off',
+                  style: GoogleFonts.nunito(
+                      fontSize: 18.sp,
+                      color: BrandColors.yellow,
+                      fontWeight: FontWeight.w700),
+                ),
+              ],
+
+            ),
+          ),
+          SizedBox(height: 10,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: PrimaryButton(buttonColor: BrandColors.colorText, value: "Join and Enroll",onPressed: ()
+            {
+              if(isLogging)
+              {
+
+              }else{
+               //  Get.snackbar("You are not eligible for enroll", "Please login for enrolling");
+                Get.bottomSheet(Container(
+                  height: 180.h,
+                  width: 180.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
+                    color: BrandColors.bgColor,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          courseDetailsWarningText,
+                          style: GoogleFonts.nunito(
+                              fontSize: 18.sp,
+                              color: BrandColors.colorText,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          courseDetailsWarningTextLogging,
+                          style: GoogleFonts.nunito(
+                              fontSize: 18.sp,
+                              color: BrandColors.colorTextBlue,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Spacer(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              flex: 2,
+                              fit: FlexFit.tight,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
+                                child: CustomButton(
+                                  value: "Sign Up",
+                                  buttonColor: BrandColors.colorPrimary,onPressed: (){
+
+                                },),
+                              ),
+                            ),
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
+                                child: CustomButton(
+                                  value: "Sign In",
+                                  buttonColor: BrandColors.yellow,onPressed: (){
+
+                                },),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+
+                    ),
+                  ),
+
+                )
+
+                );
+              }
+            },),
+          ),
+
         ],
       ),
-
-    )],
-    )
-    ,
     );
   }
+
 }
-
-

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
@@ -196,8 +197,21 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                             var dataCourse =snapshot.data!.data![index];
                             return GestureDetector(
                               onTap: (){
-                              var courseName=dataCourse.description!.toString();
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseDetails(courseName: courseName,)));
+                              var courseName=dataCourse.name!.toString();
+                              var courseInstructor=dataCourse.user!.name!.toString();
+                              var courseVideo=dataCourse.mediaLink!.toString();
+                              var coursePrice=dataCourse.price!.toString();
+                              var courseDiscount=dataCourse.discount!.toString();
+                              var courseImage=dataCourse.thumbnail!.toString();
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                                  CourseDetails(
+                                    courseName: courseName,
+                                    courseInstructor: courseInstructor,
+                                    courseVideo: courseVideo,
+                                    coursePrice: coursePrice,
+                                    courseDisCount: courseDiscount,
+                                      courseImage:courseImage
+                                  )));
 
                               },
                               child: Card(
@@ -274,7 +288,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                               children: [
                                                 Text(
 
-                                                  dataCourse.price!.toString(),
+                                                  '৳${dataCourse.price!.toString()}',
                                                   style: GoogleFonts.nunito(
                                                       fontSize: 12.sp,
                                                       color: BrandColors.colorTextBlue,
@@ -283,7 +297,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                                 ),
                                                 Text(
 
-                                                  dataCourse.oldPrice!.toString(),
+                                                  '৳${dataCourse.oldPrice!.toString()}',
                                                   style: GoogleFonts.nunito(
                                                       decoration: TextDecoration.lineThrough,
                                                       fontSize: 12.sp,
@@ -347,7 +361,80 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       ),
                     );
                   }else{
-                    return Center(child: CircularProgressIndicator());
+                    return  Container(
+                      width: double.maxFinite,
+                      height: 323.h,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (BuildContext context,  index){
+
+                            return GestureDetector(
+                              onTap: (){
+
+
+                              },
+                              child: Card(
+                                child: SizedBox(
+                                  width: 300.w,
+                                  height: 323.h,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      //1st column
+                                      Expanded(
+                                        flex:6,
+                                        child: Container(
+                                          height: 180.h,
+                                          width: 323.w,
+                                          child: Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+
+                                        ),
+                                      ),
+                                      SizedBox(height: 5,),
+                                      //2nd column
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        child: Text(
+                                          '',
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 14.sp,
+                                              color:BrandColors.colorText,
+                                              fontWeight: FontWeight.w600
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 5,),
+                                      //3rd column inside 3 three row
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+
+                                          children: [
+                                            //1st row inside 3rd column
+
+                                            Center(
+                                              child: CircularProgressIndicator(),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      //4th column
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                      ),
+                    );;
                   }
                 }
             ),
