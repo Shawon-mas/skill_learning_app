@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 import 'package:vcourse/screen/test.dart';
@@ -24,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _navigatetointroduction() async{
     await Future.delayed(Duration(milliseconds: 2500),(){});
   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TestFile()));
-     Get.offNamed(discover);
+     Get.offNamed(introduction);
 
 
   }
@@ -46,7 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
               child:
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Image.asset('assets/images/splash_logo.png'),
+                child: SvgPicture.asset(
+                  splashImage,
+                  width: 100.w,
+                  height: 100.h,
+                ),
               ),
             ),
           )
