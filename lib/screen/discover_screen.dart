@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:vcourse/apimodule/api_services.dart';
 import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
@@ -27,6 +28,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   int groupValue = 0;
+
   static Widget pageWidget(String text) {
     return Center(
       child: Text(
@@ -35,39 +37,71 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       ),
     );
   }
-  static List<Learning> learning=[
+
+  static List<Learning> learning = [
     Learning(discoverLessonIcon, discoverLiveText, discoverLiveDesText),
     Learning(discoverAccess, discoverLifeTimeText, discoverLifeTimeDesText),
-
   ];
 
   static List<Courses> courseList = [
-    Courses('WordPress BootCamp', 'assets/images/one.jpg', 'Jarif Huda Angon',
-        'assets/images/instructor_one.png', 1950, 15, 0,'CTO & Instructor',discoverLessonIcon,discoverHoursIcon,300),
-    Courses('Graphic & UI/UX Design', 'assets/images/two.jpg', 'Ishtiuq Ahmed',
-        'assets/images/instructor_two.jpg', 1999, 6, 0,'Instructor',discoverLessonIcon,discoverHoursIcon,200),
-    Courses('How to Write an Effective Research Paper', 'assets/images/three.jpg', 'Md. Mehedi Hassan',
-        'assets/images/instructor_three.jpg', 1000, 6, 0,'CEO & Instructor',discoverLessonIcon,discoverHoursIcon,700),
-  ] ;
+    Courses(
+        'WordPress BootCamp',
+        'assets/images/one.jpg',
+        'Jarif Huda Angon',
+        'assets/images/instructor_one.png',
+        1950,
+        15,
+        0,
+        'CTO & Instructor',
+        discoverLessonIcon,
+        discoverHoursIcon,
+        300),
+    Courses(
+        'Graphic & UI/UX Design',
+        'assets/images/two.jpg',
+        'Ishtiuq Ahmed',
+        'assets/images/instructor_two.jpg',
+        1999,
+        6,
+        0,
+        'Instructor',
+        discoverLessonIcon,
+        discoverHoursIcon,
+        200),
+    Courses(
+        'How to Write an Effective Research Paper',
+        'assets/images/three.jpg',
+        'Md. Mehedi Hassan',
+        'assets/images/instructor_three.jpg',
+        1000,
+        6,
+        0,
+        'CEO & Instructor',
+        discoverLessonIcon,
+        discoverHoursIcon,
+        700),
+  ];
 
   List<Widget> bodies = [
     coursList(),
     pageWidget("Instructor Page"),
     pageWidget("Categories Page"),
   ];
- static Future<CourseModel> getCourseApi() async{
-    var link='https://vcourse.net/api/courses';
-    final response= await http.get(Uri.parse(link));
-    var data=jsonDecode(response.body.toString());
-    if(response.statusCode==200){
+
+  static Future<CourseModel> getCourseApi() async {
+    var link = 'https://vcourse.net/api/courses';
+    final response = await http.get(Uri.parse(link));
+    var data = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
       print("Respnse:${data}");
       return CourseModel.fromJson(data);
-    }else{
+    } else {
       return CourseModel.fromJson(data);
     }
   }
 
   static Widget coursList() {
+    ApiServices apiServices = ApiServices();
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -138,8 +172,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     prefixIcon:
                         Icon(Icons.search, color: BrandColors.colorPrimary),
                     hintText: "Search",
-                    hintStyle:
-                        TextStyle(fontSize: 18.sp, color: BrandColors.colorText),
+                    hintStyle: TextStyle(
+                        fontSize: 18.sp, color: BrandColors.colorText),
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                     focusedBorder: OutlineInputBorder(
@@ -181,11 +215,38 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           ),
           SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10,0,0,0),
+            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: FutureBuilder<CourseModel>(
-                future:getCourseApi() ,
-                builder: (context,snapshot){
-                  if(snapshot.hasData){
+                future: apiServices.getCourseApi(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container(
+                      width: double.maxFinite,
+                      height: 323.h,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (BuildContext context, index) {
+                            return Shimmer.fromColors(
+                              baseColor: Colors.grey.shade700,
+                              highlightColor: Colors.grey.shade100,
+                              child: Card(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    //1st column
+                                    Container(
+                                      height: 180.h,
+                                      width: 323.w,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                    );
+                  } else {
                     return Container(
                       width: double.maxFinite,
                       height: 323.h,
@@ -193,93 +254,116 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemCount: snapshot.data?.data?.length,
-                          itemBuilder: (BuildContext context,  index){
-                            var dataCourse =snapshot.data!.data![index];
+                          itemBuilder: (BuildContext context, index) {
+                            var dataCourse = snapshot.data!.data![index];
                             return GestureDetector(
-                              onTap: (){
-                              var courseName=dataCourse.name!.toString();
-                              var courseInstructor=dataCourse.user!.name!.toString();
-                              var courseVideo=dataCourse.mediaLink!.toString();
-                              var coursePrice=dataCourse.price!.toString();
-                              var courseDiscount=dataCourse.discount!.toString();
-                              var courseImage=dataCourse.thumbnail!.toString();
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                                  CourseDetails(
-                                    courseName: courseName,
-                                    courseInstructor: courseInstructor,
-                                    courseVideo: courseVideo,
-                                    coursePrice: coursePrice,
-                                    courseDisCount: courseDiscount,
-                                      courseImage:courseImage
-                                  )));
-
+                              onTap: () {
+                                var courseName = dataCourse.name!.toString();
+                                var courseInstructor =
+                                    dataCourse.user!.name!.toString();
+                                var courseVideo =
+                                    dataCourse.mediaLink!.toString();
+                                var coursePrice = dataCourse.price!.toString();
+                                var courseDiscount =
+                                    dataCourse.discount!.toString();
+                                var courseImage =
+                                    dataCourse.thumbnail!.toString();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CourseDetails(
+                                            courseName: courseName,
+                                            courseInstructor: courseInstructor,
+                                            courseVideo: courseVideo,
+                                            coursePrice: coursePrice,
+                                            courseDisCount: courseDiscount,
+                                            courseImage: courseImage)));
                               },
                               child: Card(
                                 child: SizedBox(
                                   width: 300.w,
                                   height: 323.h,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       //1st column
                                       Expanded(
-                                        flex:6,
+                                        flex: 6,
                                         child: Container(
                                           height: 180.h,
                                           width: 323.w,
                                           decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage('https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
-                                                fit:BoxFit.cover
-                                            )
-                                          ),
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      'https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
+                                                  fit: BoxFit.cover)),
                                         ),
                                       ),
-                                      SizedBox(height: 5,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       //2nd column
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: Text(
                                           dataCourse.name!.toString(),
                                           style: GoogleFonts.nunito(
                                               fontSize: 14.sp,
-                                              color:BrandColors.colorText,
-                                              fontWeight: FontWeight.w600
-                                          ),
+                                              color: BrandColors.colorText,
+                                              fontWeight: FontWeight.w600),
                                         ),
                                       ),
-                                      SizedBox(height: 5,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
                                       //3rd column inside 3 three row
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             //1st row inside 3rd column
                                             CircleAvatar(
                                               radius: 20,
-                                              backgroundImage: NetworkImage('https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
-                                             // AssetImage('assets/images/instructor_three.jpg'),
-                                              backgroundColor: Colors.transparent,
-
+                                              backgroundImage: NetworkImage(
+                                                  'https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
+                                              // AssetImage('assets/images/instructor_three.jpg'),
+                                              backgroundColor:
+                                                  Colors.transparent,
                                             ),
                                             //2nd row
-                                            SizedBox(width: 7.w,),
+                                            SizedBox(
+                                              width: 7.w,
+                                            ),
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Text(dataCourse.user!.name!.toString(),style: GoogleFonts.nunito(
-                                                    fontSize: 14.sp,
-                                                    color: BrandColors.colorTextBlue,
-                                                    fontWeight: FontWeight.w400
-                                                ),),
-                                                Text("Instructor",style: GoogleFonts.nunito(
-                                                    fontSize: 12.sp,
-                                                    color: BrandColors.colorTextBlue,
-                                                    fontWeight: FontWeight.w400
-                                                ),),
+                                                Text(
+                                                  dataCourse.user!.name!
+                                                      .toString(),
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 14.sp,
+                                                      color: BrandColors
+                                                          .colorTextBlue,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  "Instructor",
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 12.sp,
+                                                      color: BrandColors
+                                                          .colorTextBlue,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
                                               ],
                                             ),
                                             //3rd  row
@@ -287,67 +371,85 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                             Column(
                                               children: [
                                                 Text(
-
                                                   '৳${dataCourse.price!.toString()}',
                                                   style: GoogleFonts.nunito(
                                                       fontSize: 12.sp,
-                                                      color: BrandColors.colorTextBlue,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
+                                                      color: BrandColors
+                                                          .colorTextBlue,
+                                                      fontWeight:
+                                                          FontWeight.w400),
                                                 ),
                                                 Text(
-
                                                   '৳${dataCourse.oldPrice!.toString()}',
                                                   style: GoogleFonts.nunito(
-                                                      decoration: TextDecoration.lineThrough,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
                                                       fontSize: 12.sp,
-                                                      color: BrandColors.colorTextBlue,
-                                                      fontWeight: FontWeight.w400
-                                                  ),
+                                                      color: BrandColors
+                                                          .colorTextBlue,
+                                                      fontWeight:
+                                                          FontWeight.w400),
                                                 ),
                                               ],
-
                                             ),
                                           ],
                                         ),
                                       ),
-                                      SizedBox(height: 10,),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
                                       //4th column
                                       Expanded(
                                         flex: 1,
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Row(
-                                                children:
-                                                [
-                                                  SvgPicture.asset(discoverLessonIcon,
-                                                    height: 15.h,),
-                                                  SizedBox(width: 5.w,),
-                                                  Text(dataCourse.numberOfLessons!.toString(),style: GoogleFonts.nunito(
-                                                      fontSize: 12.sp,
-                                                      color: BrandColors.colorTextBlue,
-                                                      fontWeight: FontWeight.w400
-                                                  ),),
-
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    discoverLessonIcon,
+                                                    height: 15.h,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  Text(
+                                                    dataCourse.numberOfLessons!
+                                                        .toString(),
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 12.sp,
+                                                        color: BrandColors
+                                                            .colorTextBlue,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
                                                 ],
                                               ),
                                               Row(
                                                 children: [
-                                                  SvgPicture.asset(discoverHoursIcon,
-                                                    height: 15.h,),
-                                                  SizedBox(width: 5.w,),
-                                                  Text(dataCourse.timeDuration!.toString(),style: GoogleFonts.nunito(
-                                                      fontSize: 12.sp,
-                                                      color: BrandColors.colorTextBlue,
-                                                      fontWeight: FontWeight.w400
-                                                  ),),
-
+                                                  SvgPicture.asset(
+                                                    discoverHoursIcon,
+                                                    height: 15.h,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5.w,
+                                                  ),
+                                                  Text(
+                                                    dataCourse.timeDuration!
+                                                        .toString(),
+                                                    style: GoogleFonts.nunito(
+                                                        fontSize: 12.sp,
+                                                        color: BrandColors
+                                                            .colorTextBlue,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
                                                 ],
                                               ),
-
                                             ],
                                           ),
                                         ),
@@ -357,87 +459,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                 ),
                               ),
                             );
-                          }
-                      ),
+                          }),
                     );
-                  }else{
-                    return  Container(
-                      width: double.maxFinite,
-                      height: 323.h,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: 5,
-                          itemBuilder: (BuildContext context,  index){
-
-                            return GestureDetector(
-                              onTap: (){
-
-
-                              },
-                              child: Card(
-                                child: SizedBox(
-                                  width: 300.w,
-                                  height: 323.h,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      //1st column
-                                      Expanded(
-                                        flex:6,
-                                        child: Container(
-                                          height: 180.h,
-                                          width: 323.w,
-                                          child: Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
-
-                                        ),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      //2nd column
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                                        child: Text(
-                                          '',
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 14.sp,
-                                              color:BrandColors.colorText,
-                                              fontWeight: FontWeight.w600
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 5,),
-                                      //3rd column inside 3 three row
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-
-                                          children: [
-                                            //1st row inside 3rd column
-
-                                            Center(
-                                              child: CircularProgressIndicator(),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(height: 10,),
-                                      //4th column
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                      ),
-                    );;
                   }
-                }
-            ),
+                }),
           ),
           SizedBox(height: 10),
           Padding(
@@ -453,7 +478,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     fontSize: 16.sp,
                   ),
                 ),
-
               ],
             ),
           ),
@@ -467,51 +491,53 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemCount: learning.length,
-
-                  itemBuilder: (BuildContext context, int index){
+                  itemBuilder: (BuildContext context, int index) {
                     var learningList = learning[index];
                     return Card(
                       child: SizedBox(
                         width: 293.w,
                         height: 160.h,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SvgPicture.asset(learningList.learningImage.toString(),
-                                height: 20.h,),
-                              SizedBox(height: 10.h,),
+                              SvgPicture.asset(
+                                learningList.learningImage.toString(),
+                                height: 20.h,
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               Text(
                                 learningList.learningTitle.toString(),
                                 style: GoogleFonts.nunito(
                                     fontSize: 14.sp,
-                                    color:BrandColors.colorTextBlue,
-                                    fontWeight: FontWeight.w600
-                                ),
+                                    color: BrandColors.colorTextBlue,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 10.h,
+                              ),
                               Text(
                                 learningList.learningDes.toString(),
                                 style: GoogleFonts.nunito(
                                     fontSize: 12.sp,
-                                    color:BrandColors.colorTextBlue,
-                                    fontWeight: FontWeight.w600
-                                ),
+                                    color: BrandColors.colorTextBlue,
+                                    fontWeight: FontWeight.w600),
                               ),
-                              SizedBox(height: 10.h,),
-
-
+                              SizedBox(
+                                height: 10.h,
+                              ),
                             ],
                           ),
                         ),
                       ),
                     );
-                  }
-              ),
+                  }),
             ),
           ),
-
         ],
       ),
     );
@@ -528,13 +554,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           style: TextStyle(color: BrandColors.colorText),
         ),
         leading: IconButton(
-          icon:  Icon(
+          icon: Icon(
             Icons.arrow_back,
             color: BrandColors.colorText,
           ),
           tooltip: 'Menu Icon',
           onPressed: () {
-           Get.back();
+            Get.back();
           },
         ),
         backgroundColor: Colors.white,

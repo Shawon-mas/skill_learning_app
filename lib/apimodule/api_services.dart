@@ -1,15 +1,20 @@
 
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+import 'package:vcourse/cousemodule/models/CourseModel.dart';
 
-class ApiServices{
-/*static var client=http.Client();
-static var link='https://vcourse.net/api/courses';
-
-static Future<CourseModel> fetchCourse() async{
-  var response= await client.get(link);
-  if(response.statusCode==200){
-    var jsonString=response.body;
-    return courseModelFromJson(jsonString);
+  class ApiServices{
+   Future<CourseModel> getCourseApi() async{
+    var link='https://vcourse.net/api/courses';
+    final response= await http.get(Uri.parse(link));
+    var data=jsonDecode(response.body.toString());
+    if(response.statusCode==200){
+      print("Respnse:${data}");
+      return CourseModel.fromJson(data);
+    }else{
+      return CourseModel.fromJson(data);
+    }
   }
-}*/
+
 }
