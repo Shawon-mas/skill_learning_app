@@ -34,7 +34,7 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
 
   late BetterPlayerController _betterPlayerController;
-  final bool isLogging=false;
+   bool isLogging=false;
   late dynamic  total;
   int groupValue = 0;
 
@@ -200,11 +200,11 @@ class _CourseDetailsState extends State<CourseDetails> {
             SizedBox(height: 7,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: PrimaryButton(buttonColor: BrandColors.colorText, value: "Join and Enroll",onPressed: ()
+              child: PrimaryButton(buttonColor: BrandColors.colorText, value: isLogging?"Enroll":"Join and Enroll",onPressed: ()
               {
                 if(isLogging)
                 {
-                  PrimaryButton(buttonColor: BrandColors.colorText, value: "Enroll",onPressed: (){});
+
                 }else{
                  //  Get.snackbar("You are not eligible for enroll", "Please login for enrolling");
                   Get.bottomSheet(Container(
