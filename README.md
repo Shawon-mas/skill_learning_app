@@ -1,16 +1,2 @@
-# vcourse
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![vcourse_logo](https://user-images.githubusercontent.com/70146703/188499264-08af314b-27c3-48b6-b7ac-b8fef934dd3d.svg)
+Vcourse is a place where you can grow! Contribute to your own growth by coming to us. Our instructors are constantly available to you and will teach you in a unique and effective manner. The Vcourse team will ensure that you grow to your full potential in your course!
