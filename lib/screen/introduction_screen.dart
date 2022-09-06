@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vcourse/routes/routes.dart';
+import 'package:vcourse/utilites/preferences_manager.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 
@@ -19,6 +20,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    PreferenceManager preferenceManager=PreferenceManager();
     return Scaffold(
        body: Stack(
          children: [
@@ -28,6 +30,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               ),
             ),
             Container(
+
              child: Column(
                crossAxisAlignment: CrossAxisAlignment.start,
                children: [
@@ -161,9 +164,12 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                        padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
                        child: CustomButton(
                          value: "Sign Up",
-                         buttonColor: BrandColors.colorPrimary,onPressed: (){
+                         buttonColor: BrandColors.colorPrimary,onPressed: ()
+                       {
 
-                       },),
+                         Get.toNamed(signup);
+                       },
+                       ),
                      ),
                    ),
                    Flexible(
@@ -173,9 +179,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                        padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
                        child: CustomButton(
                          value: "Sign In",
-                         buttonColor: BrandColors.yellow,onPressed: (){
-
-                       },),
+                         buttonColor: BrandColors.yellow,onPressed: ()
+                       {
+                         Get.toNamed(signin);
+                       },
+                       ),
                      ),
                    ),
                  ],

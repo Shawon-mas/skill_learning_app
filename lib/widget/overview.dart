@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vcourse/widget/brand_color.dart';
 
 class OverView extends StatefulWidget {
-  final String value;
+  final String value_one,value_two,value_three,value_four;
   final int number;
-  const OverView({Key? key, required this.value, required this.number}) : super(key: key);
+  const OverView({Key? key,  required this.number, required this.value_one, required this.value_two, required this.value_three, required this.value_four}) : super(key: key);
 
   @override
   State<OverView> createState() => _OverViewState();
@@ -31,10 +31,10 @@ class _OverViewState extends State<OverView> {
                 color: BrandColors.colorText,
                 fontWeight: FontWeight.w700),
           ),
-          Html(data: widget.value,style: {
+          Html(data: widget.value_one,style: {
             "body":Style(
               fontSize: FontSize(12.sp),
-              color: BrandColors.colorText,
+              color: BrandColors.colorTextBlue,
             )
           },),
           Text(
@@ -44,7 +44,7 @@ class _OverViewState extends State<OverView> {
                 color: BrandColors.colorText,
                 fontWeight: FontWeight.w700),
           ),
-          Html(data: widget.value,style: {
+          Html(data: widget.value_two,style: {
             "body":Style(
               fontSize: FontSize(12.sp),
               color: BrandColors.colorText,
@@ -57,7 +57,7 @@ class _OverViewState extends State<OverView> {
                 color: BrandColors.colorText,
                 fontWeight: FontWeight.w700),
           ),
-          Html(data: widget.value,style: {
+          Html(data: widget.value_three,style: {
             "body":Style(
               fontSize: FontSize(12.sp),
               color: BrandColors.colorText,
@@ -70,7 +70,7 @@ class _OverViewState extends State<OverView> {
                 color: BrandColors.colorText,
                 fontWeight: FontWeight.w700),
           ),
-          Html(data: widget.value,style: {
+          Html(data: widget.value_four,style: {
             "body":Style(
               fontSize: FontSize(12.sp),
               color: BrandColors.colorText,

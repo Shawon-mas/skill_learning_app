@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -95,7 +96,8 @@ class _CourseListState extends State<CourseList> {
               child: TextFormField(
                 controller: searchController,
                 onChanged: (value){
-                     setState(() {
+                     setState(()
+                     {
 
                      });
 
@@ -166,7 +168,7 @@ class _CourseListState extends State<CourseList> {
 
 
                             return Shimmer.fromColors(
-                              baseColor: Colors.grey.shade700,
+                              baseColor: BrandColors.yellow,
                               highlightColor: Colors.grey.shade100,
                               child: Card(
                                 child: Column(
@@ -206,6 +208,9 @@ class _CourseListState extends State<CourseList> {
                                   dataCourse.discount!.toString();
                                   var courseImage = dataCourse.thumbnail!.toString();
                                   var courseDescription = dataCourse.description!.toString();
+                                  var courserRequirement = dataCourse.requirments!.toString();
+                                  var courserForWho = dataCourse.forwho!.toString();
+                                  var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -215,7 +220,11 @@ class _CourseListState extends State<CourseList> {
                                               courseInstructor: courseInstructor,
                                               coursePrice: coursePrice,
                                               courseDisCount: courseDiscount,
-                                              courseImage: courseImage)));
+                                              courseImage: courseImage,
+                                              courserForWho:courserForWho,
+                                              courseWhatWillLearn:courseWhatWillLearn,
+                                            courserRequirement: courserRequirement,
+                                          )));
                                 },
                                 child: Card(
                                   child: SizedBox(
@@ -233,7 +242,7 @@ class _CourseListState extends State<CourseList> {
                                             width: 323.w,
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
-                                                    image: NetworkImage(
+                                                    image: CachedNetworkImageProvider(
                                                         'https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
                                                     fit: BoxFit.cover)),
                                           ),
@@ -398,7 +407,7 @@ class _CourseListState extends State<CourseList> {
                                 ),
                               );
                             }
-                            else if(nameCourse.toLowerCase().toUpperCase().contains(searchController.text.toLowerCase().toUpperCase()))
+                            else if(nameCourse.toLowerCase().contains(searchController.text.toLowerCase()))
                             {
                               return GestureDetector(
                                 onTap: () {
@@ -411,6 +420,9 @@ class _CourseListState extends State<CourseList> {
                                   dataCourse.discount!.toString();
                                   var courseImage = dataCourse.thumbnail!.toString();
                                   var courseDescription = dataCourse.description!.toString();
+                                  var courserRequirement = dataCourse.requirments!.toString();
+                                  var courserForWho = dataCourse.forwho!.toString();
+                                  var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -420,6 +432,9 @@ class _CourseListState extends State<CourseList> {
                                               courseInstructor: courseInstructor,
                                               coursePrice: coursePrice,
                                               courseDisCount: courseDiscount,
+                                              courserForWho:courserForWho,
+                                              courseWhatWillLearn:courseWhatWillLearn,
+                                              courserRequirement: courserRequirement,
                                               courseImage: courseImage)));
                                 },
                                 child: Card(

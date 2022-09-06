@@ -13,6 +13,8 @@ class BrandColors {
   static const Color yellow = Color(0xffECA820);
   static const Color bgColor = Color(0xffF1F2F6);
   static const Color colorWhite = Color(0xffffffff);
+  static const Color colorGrey = Color(0xffD2D2D7);
+  //#00304980
 
 
   myStyle(double size, [Color? color, FontWeight? fw]) {

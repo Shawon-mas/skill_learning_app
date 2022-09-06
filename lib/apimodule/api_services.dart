@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
 
@@ -10,7 +11,7 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
     final response= await http.get(Uri.parse(link));
     var data=jsonDecode(response.body.toString());
     if(response.statusCode==200){
-      print("Respnse:${data}");
+      debugPrint("Respnse:$data");
       return CourseModel.fromJson(data);
     }else{
       return CourseModel.fromJson(data);

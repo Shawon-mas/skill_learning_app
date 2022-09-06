@@ -7,6 +7,7 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
 import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/screen/test.dart';
 import 'package:vcourse/widget/brand_color.dart';
+import 'package:vcourse/widget/course_instructor.dart';
 import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/overview.dart';
 import 'package:vcourse/widget/primary_button.dart';
@@ -17,14 +18,16 @@ import 'package:better_player/better_player.dart';
 
 
 class CourseDetails extends StatefulWidget {
-  final String courseName, courseInstructor,  coursePrice,courseDisCount,courseImage,courseDescription;
+  final String courseName, courseInstructor,  coursePrice,
+      courseDisCount,courseImage,courseDescription,courserRequirement,
+      courserForWho,courseWhatWillLearn;
 
   const CourseDetails(
       {Key? key,
       required this.courseName,
       required this.courseInstructor,
 
-      required this.coursePrice, required this.courseDisCount, required this.courseImage,  required this.courseDescription})
+      required this.coursePrice, required this.courseDisCount, required this.courseImage,  required this.courseDescription, required this.courserRequirement, required this.courserForWho, required this.courseWhatWillLearn})
       : super(key: key);
 
   @override
@@ -34,7 +37,7 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
 
   late BetterPlayerController _betterPlayerController;
-   bool isLogging=false;
+   bool isLogging=true;
   late dynamic  total;
   int groupValue = 0;
 
@@ -65,9 +68,12 @@ class _CourseDetailsState extends State<CourseDetails> {
   List<Widget> getWidgetsList(){
 
     List<Widget> bodies = [
-      OverView(value: widget.courseDescription, number: groupValue),
-      OverView(value: 'widget.courseDescription', number: groupValue),
-      OverView(value: 'widget.', number: groupValue),
+      OverView(value_one: widget.courseDescription,value_two:widget.courserRequirement,value_three: widget.courserForWho,value_four: widget.courseWhatWillLearn ,
+          number: groupValue),
+      OverView(value_one: widget.courseDescription,value_two:widget.courserRequirement,value_three: widget.courserForWho,value_four: widget.courseWhatWillLearn ,
+          number: groupValue),
+      InstructorCourse(),
+
 
     ];
     return bodies;
@@ -324,6 +330,45 @@ class _CourseDetailsState extends State<CourseDetails> {
       style: GoogleFonts.nunito(fontSize: 18.sp),
     ),
   );
+
+ Widget InstructorCourse() {
+    return Card(
+      child: SizedBox(
+        width: double.maxFinite,
+        height: 200.h,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage('https://vcourse.net/${widget.courseImage}'),
+                // AssetImage('assets/images/instructor_three.jpg'),
+                backgroundColor:
+                Colors.transparent,
+              ),
+              SizedBox(height: 10.h,),
+              Text(
+                widget.courseInstructor,
+                style: GoogleFonts.nunito(
+                    fontSize: 14.sp,
+                    color: BrandColors.colorText,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 10.h,),
+              Text(
+                'Instructor',
+                style: GoogleFonts.nunito(
+                    fontSize: 12.sp,
+                    color: BrandColors.colorTextBlue,
+                    fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
 
 }

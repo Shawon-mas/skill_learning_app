@@ -6,6 +6,7 @@ import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 import 'package:vcourse/screen/test.dart';
+import 'package:vcourse/utilites/preferences_manager.dart';
 import 'package:vcourse/widget/brand_color.dart';
 
 import 'introduction_screen.dart';
@@ -18,6 +19,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  PreferenceManager preferenceManager=PreferenceManager();
   @override
   void initState() {
     // TODO: implement initState
@@ -25,9 +27,24 @@ class _SplashScreenState extends State<SplashScreen> {
     _navigatetointroduction();
   }
   _navigatetointroduction() async{
-    await Future.delayed(Duration(milliseconds: 2500),(){});
-  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TestFile()));
-     Get.offNamed(introduction);
+
+
+      await Future.delayed(Duration(milliseconds: 2500),(){});
+      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TestFile()));
+      Get.offNamed(introduction);
+
+      /*FutureBuilder<bool?>(
+        future: preferenceManager.getBoolean("shawon"),
+        builder: (context,snap){
+          if(snap.data==false){
+             Future.delayed(Duration(milliseconds: 2500),(){});
+            return IntroductionScreen();
+          }else{
+            return DiscoverScreen();
+          }
+
+        },
+      );*/
 
 
   }
