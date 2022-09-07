@@ -12,6 +12,7 @@ import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/primary_button.dart';
 import 'package:vcourse/widget/text_widget.dart';
+import 'package:vcourse/widget/textformfield_widget.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -38,12 +39,15 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final MediaQueryData mediaQueryData=MediaQuery.of(context);
+
     return SafeArea(
       child: Scaffold(
 
         backgroundColor: BrandColors.bgColor,
-        body: Stack(
+        body: Column(
           children: [
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -73,28 +77,32 @@ class _SignInScreenState extends State<SignInScreen> {
                     size: 30.sp,
                   ),
                 ),
+
                 SizedBox(height: 30.h,),
                 Form(
                   key: _formKey,
                     child: Column(
-
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Center(
+
                         child: TextFormField(
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                              filled: true,
-                              fillColor: BrandColors.colorWhite,
-                              prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                  color: Color.fromRGBO(0, 48, 73, 0.5)
-                              ),
-                              hintText: signInEmailHint,
-                              hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
-                              contentPadding: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 0),
+                            filled: true,
+                            fillColor: BrandColors.colorWhite,
+
+                            prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: Color.fromRGBO(0, 48, 73, 0.5)
+                            ),
+                            hintText: signInEmailHint,
+                            hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
+                            contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(width: 0,
                                 style: BorderStyle.none,),
@@ -103,15 +111,20 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                           validator: (value){
                             if(value!.isEmpty){
-                              return 'Enter your email address';
-                            }else{
+                              return 'Enter an email address';
+                            } if(!value.contains("@")){
+                              return 'Enter an valid email address';
+                            }
+                            else{
                               return null;
                             }
                           },
                         ),
+
+
                       ),
                     ),
-                    SizedBox(height: 26.h,),
+                    SizedBox(height: 20.h,),
                     //2nd textField
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -154,7 +167,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               }, icon: Icon(_isObscure?Icons.visibility : Icons.visibility_off,)),
                               hintText: signInPasswordHint,
                               hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
-                              contentPadding: EdgeInsets.fromLTRB(5.0, 15.0, 5.0, 15.0),
+                              contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(width: 0,
                                 style: BorderStyle.none,),
@@ -174,8 +187,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 )),
 
-                //1st textField
-
                 SizedBox(height: 20.h,),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -188,38 +199,63 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ],
             ),
+            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
 
-            Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don't have an account?",
-                          style: TextStyle(
-                            shadows: [
-                              Shadow(
-                                  color: BrandColors.colorTextBlue,
-                                  offset: Offset(0, -5))
-                            ],
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.transparent,
-                            decoration:
-                            TextDecoration.underline,
-                            decorationColor: Colors.black,
-                            decorationThickness: 2,
+                  MaterialButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                      height: 50,
+                      minWidth: double.maxFinite,
+                      color: btnColor,
+
+                      child: Text("Sign In",style: TextStyle(
+                        color: btnText,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+
+                      ),),
+                      onPressed: ()
+                      {
+                       if(_formKey.currentState!.validate())
+                       {
+
+                       }
+                      }
+
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account?",
+                        style: TextStyle(
+                          shadows: [
+                            Shadow(
+                                color: BrandColors.colorTextBlue,
+                                offset: Offset(0, -5))
+                          ],
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.transparent,
+                          decoration:
+                          TextDecoration.underline,
+                          decorationColor: Colors.black,
+                          decorationThickness: 2,
 
 
-                          ),
                         ),
-                        SizedBox(width: 10,),
-                        Text(
+                      ),
+                      SizedBox(width: 10,),
+                      GestureDetector(
+                        onTap: (){
+                          Get.offNamed(signup);
+                        },
+                        child: Text(
                           "Sign Up",
                           style: TextStyle(
                             shadows: [
@@ -235,89 +271,27 @@ class _SignInScreenState extends State<SignInScreen> {
 
                           ),
                         ),
+                      ),
 
 
-                      ],
-                    ),
-                    SizedBox(height: 10,),
-                    MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                        height: 50,
-                        minWidth: double.maxFinite,
-                        color: btnColor,
+                    ],
+                  ),
 
-                        child: Text("Sign In",style: TextStyle(
-                          color: btnText,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-
-                        ),),
-                        onPressed: ()
-                        {
-                         if(_formKey.currentState!.validate())
-                         {
-
-                         }
-                        }
-
-                    ),
-
-                  ],
-                ),
+                ],
               ),
             ),
+
           ],
+
         ),
 
       ),
     );
   }
 }
-/*
-Row(
-
-                  children: [
-                    Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        shadows: [
-                          Shadow(
-                              color: BrandColors.colorTextBlue,
-                              offset: Offset(0, -5))
-                        ],
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.transparent,
-                        decoration:
-                        TextDecoration.underline,
-                        decorationColor: Colors.black,
-                        decorationThickness: 2,
-
-
-                      ),
-                    ),
-                    SizedBox(width: 10,),
-                    Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        shadows: [
-                          Shadow(
-                              color: BrandColors.yellow,
-                              offset: Offset(0, -5))
-                        ],
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.transparent,
 
 
 
-                      ),
-                    ),
-
-
-                  ],
-                )
- */
 
 
 

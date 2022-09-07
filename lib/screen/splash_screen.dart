@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Color(0xffFFFCEA),
+              color: BrandColors.lightYellow,
             ),
           ),
           Center(
@@ -66,11 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child:
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: SvgPicture.asset(
-                  splashImage,
-                  width: 100.w,
-                  height: 100.h,
-                ),
+                child: Image.asset(splashImage,height: 70.h,width: 150.w,),
               ),
             ),
           )

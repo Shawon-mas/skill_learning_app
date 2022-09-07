@@ -16,3 +16,13 @@ const String signInHavenAcc="Don’t have an account?";
 const String signInHavenRegister="Register";
 const String signInText="Sign In";
 //#00304980
+const String welcomeSignInTextSignUp="Let’s sign up.";
+const String signUpEmailHint="Email";
+const String signUpNameHint="Your Name";
+const String signUpPhoneHint="Phone";
+const String signUpUserHint="Username";
+const String signUpPasswordHint="Password";
+const String signUpCPasswordHint="Confirm Password";
+const String signUpHavenAcc="Already have account?";
+const String signUpHavenRegister="Register";
+const String signUpText="Sign In";
