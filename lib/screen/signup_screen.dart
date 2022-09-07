@@ -76,7 +76,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               SizedBox(height: 10.h,),
-              Form(child: Column(
+              Form(
+                key: _formKey,
+                  child:
+                  Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children:
