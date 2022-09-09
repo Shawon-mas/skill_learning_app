@@ -12,8 +12,7 @@ import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/overview.dart';
 import 'package:vcourse/widget/primary_button.dart';
 import 'package:vcourse/widget/primary_toolbar.dart';
-import 'package:video_player/video_player.dart';
-import 'package:better_player/better_player.dart';
+
 
 
 
@@ -36,7 +35,7 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
 
-  late BetterPlayerController _betterPlayerController;
+
    bool isLogging=true;
   late dynamic  total;
   int groupValue = 0;
@@ -46,12 +45,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     super.initState();
     total=widget.courseDescription;
 
-    BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-        BetterPlayerDataSourceType.network,
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4");
-    _betterPlayerController = BetterPlayerController(
-        BetterPlayerConfiguration(),
-        betterPlayerDataSource: betterPlayerDataSource);
+
   }
 
 

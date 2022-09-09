@@ -316,12 +316,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
 
                 ],
-              )),
-              SizedBox(height: 10.h,),
+              )
+              ),
+              SizedBox(height: 30.h,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Already have account",
@@ -369,7 +370,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(height: 10.h,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: MaterialButton(

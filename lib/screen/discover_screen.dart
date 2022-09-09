@@ -1,25 +1,17 @@
-import 'dart:convert';
-import 'dart:ffi';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:vcourse/apimodule/api_services.dart';
-import 'package:vcourse/constants/image_strings.dart';
-import 'package:vcourse/constants/text_strings.dart';
-import 'package:vcourse/cousemodule/models/CourseModel.dart';
-import 'package:vcourse/models/courses.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vcourse/models/learning.dart';
-import 'package:vcourse/routes/routes.dart';
-import 'package:vcourse/screen/course_details.dart';
+
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/course_list.dart';
-import 'package:vcourse/widget/custom_container.dart';
-import 'package:http/http.dart' as http;
+
+
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key}) : super(key: key);
