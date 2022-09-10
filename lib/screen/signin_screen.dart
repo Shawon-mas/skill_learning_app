@@ -5,9 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:vcourse/constants/text_strings.dart';
+import 'package:vcourse/utilites/utils.dart';
+
 import 'package:vcourse/routes/routes.dart';
+import 'package:vcourse/utilites/utils.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/text_widget.dart';
+import 'package:provider/provider.dart';
+
 
 
 class SignInScreen extends StatefulWidget {
@@ -24,6 +29,8 @@ class _SignInScreenState extends State<SignInScreen> {
   final _formKey=GlobalKey<FormState>();
   Color btnColor = Colors.white;
   Color btnText = BrandColors.colorGrey;
+  FocusNode emailFocusNode=FocusNode();
+  FocusNode passwordFocusNode=FocusNode();
 
   @override
   void dispose() {
@@ -86,8 +93,12 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: Center(
 
                         child: TextFormField(
+                          focusNode: emailFocusNode,
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
+                          onFieldSubmitted: (value){
+                            Utils.fieldFocusedChage(context, emailFocusNode, passwordFocusNode);
+                          },
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: BrandColors.colorWhite,
@@ -108,9 +119,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           validator: (value){
                             if(value!.isEmpty){
                               return 'Enter an email address';
-                            } if(!value.contains("@")){
+                            } /*if(!value.contains("@")){
                               return 'Enter an valid email address';
-                            }
+                            }*/
                             else{
                               return null;
                             }
@@ -126,6 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Center(
                         child: TextFormField(
+                          focusNode: passwordFocusNode,
                           controller: passwordController,
                           keyboardType: TextInputType.text,
                           obscureText: _isObscure,
@@ -220,6 +232,7 @@ class _SignInScreenState extends State<SignInScreen> {
                        {
 
                        }
+
                       }
 
                   ),

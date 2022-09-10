@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vcourse/constants/image_strings.dart';
-import 'package:vcourse/mvvm/utilites/preferences_manager.dart';
+
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 import 'package:vcourse/screen/test.dart';
@@ -20,7 +20,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  PreferenceManager preferenceManager=PreferenceManager();
+
   @override
   void initState() {
     // TODO: implement initState

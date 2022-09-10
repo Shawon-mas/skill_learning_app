@@ -2,9 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import 'package:vcourse/routes/routes.dart';
 import 'package:device_preview/device_preview.dart';
-
+import 'package:provider/provider.dart';
 
 
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           initialRoute: splash,
           debugShowCheckedModeBanner: false,
           getPages: pages,
-         // home: SplashScreen(),
+          // home: SplashScreen(),
         );
       },
     );
@@ -54,5 +55,20 @@ ResponsiveSizer(
       },
 
     );
-
+ScreenUtilInit(
+      designSize: const Size(360,800),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          useInheritedMediaQuery: true,
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          initialRoute: splash,
+          debugShowCheckedModeBanner: false,
+          getPages: pages,
+         // home: SplashScreen(),
+        );
+      },
+    )
  */
