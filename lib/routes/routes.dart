@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:vcourse/mvvm/view/signin_screen.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 import 'package:vcourse/screen/introduction_screen.dart';
-import 'package:vcourse/screen/signin_screen.dart';
+
 import 'package:vcourse/screen/signup_screen.dart';
 import 'package:vcourse/screen/splash_screen.dart';
 

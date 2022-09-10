@@ -39,6 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final height=MediaQuery.of(context).size.height*1;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -395,6 +396,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 ),
               ),
+              SizedBox(height: height*.3,),
 
             ],
           ),

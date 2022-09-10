@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vcourse/constants/image_strings.dart';
+import 'package:vcourse/mvvm/utilites/preferences_manager.dart';
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 import 'package:vcourse/screen/test.dart';
-import 'package:vcourse/utilites/preferences_manager.dart';
+
 import 'package:vcourse/widget/brand_color.dart';
 
 import 'introduction_screen.dart';

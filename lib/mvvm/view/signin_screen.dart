@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/routes/routes.dart';
-
 import 'package:vcourse/widget/brand_color.dart';
-
 import 'package:vcourse/widget/text_widget.dart';
 
 
@@ -154,7 +151,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             filled: true,
                               fillColor: BrandColors.colorWhite,
                               prefixIcon: Icon(
-                                  Icons.lock,
+                                  Icons.lock_open_rounded,
                                   color: Color.fromRGBO(0, 48, 73, 0.5)
                               ),
                               suffixIcon: IconButton(onPressed: ()

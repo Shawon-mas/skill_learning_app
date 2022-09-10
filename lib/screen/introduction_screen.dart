@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vcourse/mvvm/utilites/preferences_manager.dart';
 import 'package:vcourse/routes/routes.dart';
-import 'package:vcourse/utilites/preferences_manager.dart';
+
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/screen/discover_screen.dart';
 
