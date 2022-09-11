@@ -47,7 +47,15 @@ class _CategoriesListState extends State<CategoriesList> {
 
               });
             }),
+            SizedBox(width: 10,),
+            actionChips('Programming',BrandColors.colorPurple,() {
+              setState(() {
+                btnColor=BrandColors.colorPurple;
+                btnText=BrandColors.colorWhite;
+                iconColor=BrandColors.colorWhite;
 
+              });
+            }),
           ],
         ),
 
