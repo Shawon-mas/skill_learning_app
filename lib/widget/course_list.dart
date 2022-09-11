@@ -204,8 +204,7 @@ class _CourseListState extends State<CourseList> {
                                   dataCourse.user!.name!.toString();
 
                                   var coursePrice = dataCourse.price!.toString();
-                                  var courseDiscount =
-                                  dataCourse.discount!.toString();
+                                  var courseDiscount = dataCourse.discount!.toString();
                                   var courseImage = dataCourse.thumbnail!.toString();
                                   var courseDescription = dataCourse.description!.toString();
                                   var courserRequirement = dataCourse.requirments!.toString();

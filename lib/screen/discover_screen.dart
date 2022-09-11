@@ -9,7 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:vcourse/widget/brand_color.dart';
+import 'package:vcourse/widget/categories_list.dart';
 import 'package:vcourse/widget/course_list.dart';
+import 'package:vcourse/widget/intructor_list.dart';
 
 
 
@@ -27,7 +29,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
     List<Widget> bodies = [
       CourseList(),
-
+      InstructorList(),
+      CategoriesList()
     ];
     return bodies;
   }
@@ -35,6 +38,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget build(BuildContext context) {
     List<Widget> widgets =  getWidgetsList();
     return Scaffold(
+      backgroundColor: BrandColors.bgColor,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text(

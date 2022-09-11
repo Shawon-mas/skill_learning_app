@@ -9,6 +9,8 @@ import 'package:vcourse/utilites/utils.dart';
 
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/utilites/utils.dart';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_route.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final emailController=TextEditingController();
   final passwordController=TextEditingController();
   final _formKey=GlobalKey<FormState>();
+
   Color btnColor = Colors.white;
   Color btnText = BrandColors.colorGrey;
   FocusNode emailFocusNode=FocusNode();
@@ -82,118 +85,101 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
 
                 SizedBox(height: 30.h,),
-                Form(
-                  key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Center(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
 
-                        child: TextFormField(
-                          focusNode: emailFocusNode,
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          onFieldSubmitted: (value){
-                            Utils.fieldFocusedChage(context, emailFocusNode, passwordFocusNode);
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: BrandColors.colorWhite,
+                    child: TextFormField(
+                      focusNode: emailFocusNode,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      onFieldSubmitted: (value){
+                        Utils.fieldFocusedChage(context, emailFocusNode, passwordFocusNode);
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: BrandColors.colorWhite,
 
-                            prefixIcon: Icon(
-                                Icons.email_outlined,
-                                color: Color.fromRGBO(0, 48, 73, 0.5)
-                            ),
-                            hintText: signInEmailHint,
-                            hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
-                            contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 0,
-                                style: BorderStyle.none,),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return 'Enter an email address';
-                            } /*if(!value.contains("@")){
-                              return 'Enter an valid email address';
-                            }*/
-                            else{
-                              return null;
-                            }
-                          },
+                        prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: Color.fromRGBO(0, 48, 73, 0.5)
                         ),
-
-
-                      ),
-                    ),
-                    SizedBox(height: 20.h,),
-                    //2nd textField
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Center(
-                        child: TextFormField(
-                          focusNode: passwordFocusNode,
-                          controller: passwordController,
-                          keyboardType: TextInputType.text,
-                          obscureText: _isObscure,
-                          onChanged: (text){
-                            if(passwordController.text.isEmpty){
-                              setState(() {
-                                btnColor = Colors.white;
-                                btnText = BrandColors.colorGrey;
-                              });
-                            }else if (passwordController.text.length<6){
-                              setState(() {
-                                btnColor = Colors.white;
-                                btnText = BrandColors.colorGrey;
-                              });
-                            }else{
-                              setState(() {
-                                btnColor = BrandColors.yellow;
-                                btnText = BrandColors.colorWhite;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            filled: true,
-                              fillColor: BrandColors.colorWhite,
-                              prefixIcon: Icon(
-                                  Icons.lock_open_rounded,
-                                  color: Color.fromRGBO(0, 48, 73, 0.5)
-                              ),
-                              suffixIcon: IconButton(onPressed: ()
-                              {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-
-                              }, icon: Icon(_isObscure?Icons.visibility : Icons.visibility_off,)),
-                              hintText: signInPasswordHint,
-                              hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
-                              contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(width: 0,
-                                style: BorderStyle.none,),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          validator: (value){
-                            if(value!.isEmpty){
-                              return 'Enter your password';
-                            }else{
-                              return null;
-                            }
-                          },
+                        hintText: signInEmailHint,
+                        hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
+                        contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 0,
+                            style: BorderStyle.none,),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
+
                     ),
+
+
+                  ),
+                ),
+                SizedBox(height: 20.h,),
+                //2nd textField
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                    child: TextFormField(
+                      focusNode: passwordFocusNode,
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      obscureText: _isObscure,
+                      onChanged: (text){
+                        if(passwordController.text.isEmpty){
+                          setState(() {
+                            btnColor = Colors.white;
+                            btnText = BrandColors.colorGrey;
+                          });
+                        }else if (passwordController.text.length<6){
+                          setState(() {
+                            btnColor = Colors.white;
+                            btnText = BrandColors.colorGrey;
+                          });
+                        }else{
+                          setState(() {
+                            btnColor = BrandColors.yellow;
+                            btnText = BrandColors.colorWhite;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                          fillColor: BrandColors.colorWhite,
+                          prefixIcon: Icon(
+                              Icons.lock_open_rounded,
+                              color: Color.fromRGBO(0, 48, 73, 0.5)
+                          ),
+                          suffixIcon: IconButton(onPressed: ()
+                          {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+
+                          }, icon: Icon(_isObscure?Icons.visibility : Icons.visibility_off,)),
+                          hintText: signInPasswordHint,
+                          hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
+                          contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 0,
+                            style: BorderStyle.none,),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+
+                    ),
+                  ),
+                ),
                   ],
-                )),
+                ),
 
                 SizedBox(height: 20.h,),
                 Padding(
@@ -228,10 +214,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),),
                       onPressed: ()
                       {
-                       if(_formKey.currentState!.validate())
-                       {
-
-                       }
+                       setState(() {
+                         if(emailController.text.isEmpty){
+                           Utils.flushBarErrorMessage("Enter an email or username", context);
+                         }if(passwordController.text.isEmpty){
+                           Utils.flushBarErrorMessage("Enter password", context);
+                         }
+                         else{
+                           Get.toNamed(discover);
+                         }
+                       });
 
                       }
 

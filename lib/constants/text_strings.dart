@@ -26,3 +26,13 @@ const String signUpCPasswordHint="Confirm Password";
 const String signUpHavenAcc="Already have account?";
 const String signUpHavenRegister="Register";
 const String signUpText="Sign In";
+
+//instructor image
+const String instructorOneName="Mehedi Hassan";
+const String instructorOneTitle="CEO & Instructor";
+const String instructorTwoName="Jarif Huda Angon";
+const String instructorTwoTitle="CTO & Instructor";
+const String instructorThreeName="Sabbir Hussain";
+const String instructorThreeTitle="Instructor";
+const String instructorFourName="Ishtiuq Ahmed Chowdhury";
+const String instructorFourTitle="Instructor";
