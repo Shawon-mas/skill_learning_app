@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vcourse/cousemodule/courseCart/cart_provider/cart_provider.dart';
 
 import 'package:vcourse/routes/routes.dart';
 import 'package:device_preview/device_preview.dart';
@@ -24,21 +25,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360,800),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return GetMaterialApp(
-          useInheritedMediaQuery: true,
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
-          initialRoute: splash,
-          debugShowCheckedModeBanner: false,
-          getPages: pages,
-          // home: SplashScreen(),
-        );
-      },
+    return ChangeNotifierProvider(create: (_)=> CartProvider(),
+      child: ScreenUtilInit(
+        designSize: const Size(360,800),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return GetMaterialApp(
+            useInheritedMediaQuery: true,
+            locale: DevicePreview.locale(context),
+            builder: DevicePreview.appBuilder,
+            initialRoute: splash,
+            debugShowCheckedModeBanner: false,
+            getPages: pages,
+            // home: SplashScreen(),
+          );
+        },
+      )
     );
   }
 }
@@ -46,13 +49,6 @@ class MyApp extends StatelessWidget {
 // debugShowCheckedModeBanner: false,
 // home: SplashScreen(),
 /*
-ResponsiveSizer(
-      builder: (context, orientation, screenType) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
-        );
-      },
 
     );
 ScreenUtilInit(

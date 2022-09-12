@@ -210,10 +210,12 @@ class _CourseListState extends State<CourseList> {
                                   var courserRequirement = dataCourse.requirments!.toString();
                                   var courserForWho = dataCourse.forwho!.toString();
                                   var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
+                                  var courseId=dataCourse.id!;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => CourseDetails(
+                                              courseId: courseId,
                                               courseDescription:courseDescription,
                                               courseName: courseName,
                                               courseInstructor: courseInstructor,

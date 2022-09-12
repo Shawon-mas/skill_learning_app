@@ -29,35 +29,94 @@ class _CategoriesListState extends State<CategoriesList> {
       children:
       [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            actionChips('Programming',BrandColors.colorBrown,() {
-              setState(() {
-                btnColor=BrandColors.colorBrown;
-                btnText=BrandColors.colorWhite;
-                iconColor=BrandColors.colorWhite;
+              GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      btnColor= BrandColors.colorBrown;
+                    });
+                    print("ok");
+                  },
+                  child: chip("Programming", BrandColors.colorBrown)),
+            SizedBox(width: 7.w,),
+            GestureDetector(
+                onTap: (){
+                  print("nice");
+                },
+                child: chip("Computer", BrandColors.colorPurple)),
 
-              });
-            }),
-          SizedBox(width: 10,),
-            actionChips('Programming',BrandColors.colorPurple,() {
-              setState(() {
-                btnColor=BrandColors.colorPurple;
-                btnText=BrandColors.colorWhite;
-                iconColor=BrandColors.colorWhite;
-
-              });
-            }),
-            SizedBox(width: 10,),
-            actionChips('Programming',BrandColors.colorPurple,() {
-              setState(() {
-                btnColor=BrandColors.colorPurple;
-                btnText=BrandColors.colorWhite;
-                iconColor=BrandColors.colorWhite;
-
-              });
-            }),
           ],
         ),
+        SizedBox(height: 7.h,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+                onTap: (){
+                  setState(() {
+                    btnColor= BrandColors.colorBrown;
+                  });
+                  print("ok");
+                },
+                child: chip("Marketing", BrandColors.colorRed)),
+            SizedBox(width: 7.w,),
+            GestureDetector(
+                onTap: (){
+                  print("nice");
+                },
+                child: chip("Photography", BrandColors.colorGreenLight)),
+
+          ],
+        ),
+        SizedBox(height: 7.h,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+                onTap: (){
+                  setState(() {
+                    btnColor= BrandColors.colorBrown;
+                  });
+                  print("ok");
+                },
+                child: chip("Development", BrandColors.yellow)),
+            SizedBox(width: 7.w,),
+            GestureDetector(
+                onTap: (){
+                  print("nice");
+                },
+                child: chip("Design", BrandColors.colorText)),
+
+          ],
+        ),
+        SizedBox(height: 7.h,),
+        InkWell(
+           /* onTap: (){
+             setState(() {
+               btnColor=BrandColors.colorLightBlue;
+             });
+            },*/
+
+            child: chip("Research & Development", BrandColors.colorLightBlue)),
+        SizedBox(height: 50.h,),
+        Center(
+          child: OutlinedButton(
+
+            onPressed: () {},
+            child: Text("Continue"),
+            style: OutlinedButton.styleFrom(
+              padding: EdgeInsets.all(10.0),
+              fixedSize: Size(300.w, 45.h),
+              side: BorderSide(color: BrandColors.colorText,width: 1),
+              shape: StadiumBorder(),
+              textStyle: GoogleFonts.nunito(fontSize: 14.sp,fontWeight: FontWeight.w700 ),
+              primary: BrandColors.colorText
+            ),
+
+          ),
+        ),
+
 
 
 
@@ -65,38 +124,30 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  rowChip(){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-
-        SizedBox(width: 10.w,),
-
-      ],
-    );
-  }
-
-  Widget actionChips(String label,Color strokeColor,VoidCallback onPressed) {
-    return ActionChip(
-
-
-      avatar: Padding(
-        padding: const EdgeInsets.only(left: 7),
-        child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          child: Icon(Icons.add,color: iconColor,),
+  Widget chip(String label, Color color) {
+    return Chip(
+      labelPadding: EdgeInsets.all(5.0),
+      avatar: CircleAvatar(
+        backgroundColor: Colors.transparent,
+        child: Icon(Icons.add,color: BrandColors.colorText,),
+      ),
+      label: Text(
+        label,
+        style: GoogleFonts.nunito(
+          color: BrandColors.colorText,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600
         ),
       ),
-      label: Text(label,style: GoogleFonts.nunito(
-        color: btnText, fontWeight: FontWeight.w600,fontSize: 16.sp
-      ),),
-      onPressed: onPressed,
       backgroundColor: btnColor,
-      shape: StadiumBorder(
-          side: BorderSide(
-            width: 1,
-            color: strokeColor,
-          )),
+
+      padding: EdgeInsets.all(6.0),
+        side: BorderSide(
+          width: 1,
+          color: color,
+        )
     );
   }
+
+
 }

@@ -1,17 +1,23 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vcourse/cousemodule/models/CourseModel.dart';
+import 'package:provider/provider.dart';
+
 import 'package:vcourse/constants/text_strings.dart';
+import 'package:vcourse/cousemodule/courseCart/cart_model.dart';
+import 'package:vcourse/cousemodule/courseCart/cart_provider/cart_provider.dart';
+import 'package:vcourse/cousemodule/courseCart/database/db_helper.dart';
+import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/test.dart';
 import 'package:vcourse/widget/brand_color.dart';
-import 'package:vcourse/widget/course_instructor.dart';
+
 import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/overview.dart';
 import 'package:vcourse/widget/primary_button.dart';
-import 'package:vcourse/widget/primary_toolbar.dart';
+
 
 
 
@@ -20,13 +26,16 @@ class CourseDetails extends StatefulWidget {
   final String courseName, courseInstructor,  coursePrice,
       courseDisCount,courseImage,courseDescription,courserRequirement,
       courserForWho,courseWhatWillLearn;
+  final int? courseId;
 
   const CourseDetails(
       {Key? key,
-      required this.courseName,
-      required this.courseInstructor,
-
-      required this.coursePrice, required this.courseDisCount, required this.courseImage,  required this.courseDescription, required this.courserRequirement, required this.courserForWho, required this.courseWhatWillLearn})
+       required this.courseName,
+       required this.courseInstructor,
+       required this.coursePrice, required this.courseDisCount,
+        required this.courseImage,  required this.courseDescription,
+        required this.courserRequirement, required this.courserForWho,
+        required this.courseWhatWillLearn, this.courseId})
       : super(key: key);
 
   @override
@@ -35,29 +44,21 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
 
-
+   DBHelper dbHelper=DBHelper();
    bool isLogging=true;
-  late dynamic  total;
+
   int groupValue = 0;
+
+
 
   @override
   void initState() {
     super.initState();
-    total=widget.courseDescription;
-
+   var id=widget.courseId;
+    print(id);
 
   }
 
-
-
-   static Widget pageWidget(String text) {
-    return Center(
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.black, fontSize: 20.sp),
-      ),
-    );
-  }
 
   List<Widget> getWidgetsList(){
 
@@ -76,10 +77,42 @@ class _CourseDetailsState extends State<CourseDetails> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets =  getWidgetsList();
+    final cart=Provider.of<CartProvider>(context);
     return Scaffold(
       backgroundColor: BrandColors.bgColor,
-      appBar: CustomToolbar(
-        value: "Course",
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: GestureDetector(
+          onTap: (){
+            Get.back();
+          },
+            child: Icon(Icons.arrow_back,color: BrandColors.colorTextBlue,)),
+        title: Text('Course Details',style: GoogleFonts.nunito(
+          color: BrandColors.colorTextBlue,fontSize: 18.sp,fontWeight: FontWeight.w600
+        ),),
+        actions: [
+
+
+          GestureDetector(
+            onTap: (){
+              Get.toNamed(cartScreen);
+
+              },
+            child: Center(
+              child: Badge(
+
+                badgeContent:Consumer<CartProvider>(
+                    builder: (context,value,child)
+                {
+                     return  Text(value.getCounter().toString(),style: GoogleFonts.nunito(color: BrandColors.colorWhite,fontSize: 12.sp),);
+                 }),
+                animationDuration: Duration(milliseconds: 300),
+                child:Icon(Icons.shopping_cart,color: BrandColors.colorTextBlue),
+              ),
+            ),
+          ),
+          SizedBox(width: 20.w,)
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -204,6 +237,22 @@ class _CourseDetailsState extends State<CourseDetails> {
               {
                 if(isLogging)
                 {
+                  dbHelper!.insert(
+                    Cart(
+                      courseId: widget.courseId,
+                      courseName: widget.courseName,
+                      courseInstructor: widget.courseInstructor,
+                      courseImage: widget.courseImage,
+                      coursePrice: widget.coursePrice)
+                  ).then((value) {
+                
+                    print('course added to cart');
+                    cart.addTotalPrice(double.parse(widget.coursePrice));
+                    cart.addCounter();
+
+                  }).onError((error, stackTrace) {
+                    print(error.toString());
+                  });
 
                 }else{
                  //  Get.snackbar("You are not eligible for enroll", "Please login for enrolling");

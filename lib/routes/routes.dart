@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:vcourse/screen/cart_screen.dart';
 
 import 'package:vcourse/screen/discover_screen.dart';
 import 'package:vcourse/screen/introduction_screen.dart';
@@ -13,6 +14,7 @@ const introduction = "/introduction";
 const discover = "/discover";
 const signin = "/signin";
 const signup = "/signup";
+const cartScreen= "/cartScreen";
 
 final pages = [
   page(splash, SplashScreen(),),
@@ -20,6 +22,7 @@ final pages = [
   page(discover, DiscoverScreen(),),
   page(signin, SignInScreen(),),
   page(signup, SignUpScreen(),),
+  page(cartScreen, CartScreen(),),
 
 ];
 GetPage page(String name, Widget page) {
