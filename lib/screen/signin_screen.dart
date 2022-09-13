@@ -217,7 +217,7 @@ class _SignInScreenState extends State<SignInScreen> {
                        setState(() {
                          if(emailController.text.isEmpty){
                            Utils.flushBarErrorMessage("Enter an email or username", context);
-                         }if(passwordController.text.isEmpty){
+                         }else if(passwordController.text.isEmpty){
                            Utils.flushBarErrorMessage("Enter password", context);
                          }
                          else{

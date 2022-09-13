@@ -44,7 +44,7 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
 
-   DBHelper dbHelper=DBHelper();
+   DBHelper? dbHelper=DBHelper();
    bool isLogging=true;
 
   int groupValue = 0;
