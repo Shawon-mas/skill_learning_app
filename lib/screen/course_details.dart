@@ -17,6 +17,7 @@ import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/overview.dart';
 import 'package:vcourse/widget/primary_button.dart';
+import 'package:vcourse/widget/text_widget.dart';
 
 
 
@@ -44,7 +45,7 @@ class CourseDetails extends StatefulWidget {
 
 class _CourseDetailsState extends State<CourseDetails> {
 
-   DBHelper? dbHelper=DBHelper();
+   DBHelper dbHelper=DBHelper();
    bool isLogging=true;
 
   int groupValue = 0;
@@ -237,7 +238,7 @@ class _CourseDetailsState extends State<CourseDetails> {
               {
                 if(isLogging)
                 {
-                  dbHelper!.insert(
+                  dbHelper?.insert(
                     Cart(
                       courseId: widget.courseId,
                       courseName: widget.courseName,
@@ -246,12 +247,31 @@ class _CourseDetailsState extends State<CourseDetails> {
                       coursePrice: widget.coursePrice)
                   ).then((value) {
                 
-                    print('course added to cart');
+
                     cart.addTotalPrice(double.parse(widget.coursePrice));
                     cart.addCounter();
+                    final snackBar = SnackBar(
+                      backgroundColor: BrandColors.colorGreenLight,
+                      content: TextWidget(
+                        value: 'Course is added to cart',
+                        color: BrandColors.colorWhite,
+                        size: 14.sp,
+                        fontWeight: FontWeight.w700,
+                      ), duration: Duration(seconds: 2),);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
                   }).onError((error, stackTrace) {
+
                     print(error.toString());
+                    final snackBar = SnackBar(
+                      backgroundColor: BrandColors.colorRed,
+                      content: TextWidget(
+                        value: 'Course is already added to cart',
+                        color: BrandColors.colorWhite,
+                        size: 14.sp,
+                        fontWeight: FontWeight.w700,
+                      ), duration: Duration(seconds: 2),);
+                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
 
                 }else{

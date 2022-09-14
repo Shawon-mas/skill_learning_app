@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:vcourse/cousemodule/courseCart/cart_model.dart';
 import 'package:vcourse/cousemodule/courseCart/cart_provider/cart_provider.dart';
 import 'package:vcourse/cousemodule/courseCart/database/db_helper.dart';
+import 'package:vcourse/screen/checkout_screen.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/primary_toolbar.dart';
@@ -28,6 +30,7 @@ class _CartScreenState extends State<CartScreen> {
       appBar: CustomToolbar(
         value: "My Cart",
       ),
+        backgroundColor: BrandColors.bgColor,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -43,83 +46,96 @@ class _CartScreenState extends State<CartScreen> {
                 future: cart.getData(),
                 builder: (context, AsyncSnapshot<List<Cart>> snapshot) {
                   if (snapshot.hasData) {
+                    if(snapshot.data!.isEmpty)
+                    {
+                      return Center(
 
-                    return Expanded(
-                      child: ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            price='https://vcourse.net/${snapshot.data![index].courseImage.toString()}';
-                            return Card(
-                              child: SizedBox(
-                                  width: double.infinity,
-                                  height: 120.h,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                   mainAxisSize: MainAxisSize.max
-                                    ,
-                                   children: [
-                                   Expanded(
-                                    child: Container(
-                                      height: 120.h,
-                                      width: 130.w,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: CachedNetworkImageProvider(
-                                                  'https://vcourse.net/${snapshot.data![index].courseImage.toString()}'),
-                                              fit: BoxFit.cover)),
-                                    ),
-                                  ),
-                                   SizedBox(
-                                    width: 10.w,
-                                  ),
-                                   Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-
+                        child: Column(
+                          children: [
+                            Lottie.network('https://assets6.lottiefiles.com/packages/lf20_iezsnh5g.json')
+                          ],
+                        ),
+                      );
+                    }else{
+                      return Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              price='https://vcourse.net/${snapshot.data![index].courseImage.toString()}';
+                              return Card(
+                                child: SizedBox(
+                                    width: double.infinity,
+                                    height: 120.h,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.max
+                                      ,
                                       children: [
-                                        TextWidget(
-                                          value: snapshot
-                                              .data![index].courseName
-                                              .toString(),
-                                          color: BrandColors.colorText,
-                                          size: 14.sp,
-                                          fontWeight: FontWeight.w700,
+                                        Expanded(
+                                          child: Container(
+                                            height: 120.h,
+                                            width: 130.w,
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: CachedNetworkImageProvider(
+                                                        'https://vcourse.net/${snapshot.data![index].courseImage.toString()}'),
+                                                    fit: BoxFit.cover)),
+                                          ),
                                         ),
-                                        TextWidget(
-                                          value:
-                                              'By ${snapshot.data![index].courseInstructor.toString()}',
-                                          color: BrandColors.colorTextBlue,
-                                          size: 12.sp,
-                                          fontWeight: FontWeight.w400,
+                                        SizedBox(
+                                          width: 10.w,
                                         ),
-                                        TextWidget(
-                                          value:
-                                              'Price: ৳${snapshot.data![index].coursePrice.toString()}',
-                                          color: BrandColors.colorText,
-                                          size: 12.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        CustomButton(
-                                          value: 'Remove',
-                                          buttonColor: BrandColors.yellow,
-                                          onPressed: () {
-                                            dbHelper!.delete(snapshot.data![index].courseId!);
-                                            cart.removerCounter();
-                                            cart.removeTotalPrice(double.parse(snapshot.data![index].coursePrice.toString()));
-                                          },
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+
+                                            children: [
+                                              TextWidget(
+                                                value: snapshot
+                                                    .data![index].courseName
+                                                    .toString(),
+                                                color: BrandColors.colorText,
+                                                size: 14.sp,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              TextWidget(
+                                                value:
+                                                'By ${snapshot.data![index].courseInstructor.toString()}',
+                                                color: BrandColors.colorTextBlue,
+                                                size: 12.sp,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                              TextWidget(
+                                                value:
+                                                'Price: ৳${snapshot.data![index].coursePrice.toString()}',
+                                                color: BrandColors.colorText,
+                                                size: 12.sp,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              CustomButton(
+                                                value: 'Remove',
+                                                buttonColor: BrandColors.yellow,
+                                                onPressed: () {
+                                                  dbHelper!.delete(snapshot.data![index].courseId!);
+                                                  cart.removerCounter();
+                                                  cart.removeTotalPrice(double.parse(snapshot.data![index].coursePrice.toString()));
+                                                },
+                                              )
+                                            ],
+                                          ),
                                         )
                                       ],
-                                    ),
-                                  )
-                                ],
-                              )),
-                            );
-                          }),
-                    );
+                                    )),
+                              );
+                            }),
+                      );
+                    }
+
                   }
-                  return Text('data');
+                  return Text('');
                 }),
             SizedBox(height: 10.h,),
 
@@ -141,7 +157,7 @@ class _CartScreenState extends State<CartScreen> {
 
                           TextWidget(
                             value: 'Summery',
-                            color: BrandColors.colorText,
+                            color: BrandColors.colorBlue,
                             size: 18.sp,
                             fontWeight: FontWeight.w700,
                           ),
@@ -151,13 +167,13 @@ class _CartScreenState extends State<CartScreen> {
                             children: [
                               TextWidget(
                                 value: 'Subtotal',
-                                color: BrandColors.colorText,
+                                color: BrandColors.colorBlue,
                                 size: 12.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                               TextWidget(
                                 value: '৳${value.getTotalPrice().toStringAsFixed(2)}',
-                                color: BrandColors.colorText,
+                                color: BrandColors.colorBlue,
                                 size: 12.sp,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -173,13 +189,13 @@ class _CartScreenState extends State<CartScreen> {
                             children: [
                               TextWidget(
                                 value: 'Total',
-                                color: BrandColors.colorText,
+                                color: BrandColors.colorBlue,
                                 size: 14.sp,
                                 fontWeight: FontWeight.w700,
                               ),
                               TextWidget(
                                 value: '৳${value.getTotalPrice().toStringAsFixed(2)}',
-                                color: BrandColors.colorText,
+                                color: BrandColors.colorBlue,
                                 size: 14.sp,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -199,7 +215,8 @@ class _CartScreenState extends State<CartScreen> {
                               ),),
                               onPressed: ()
                               {
-                                print(price);
+
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutScreen()));
 
                               }
 

@@ -30,11 +30,11 @@ class DBHelper {
         .execute('CREATE TABLE cart (courseId INTEGER PRIMARY KEY ,courseName TEXT,coursePrice TEXT, courseInstructor TEXT , courseImage TEXT )');
   }
 
-  Future<Cart> insert(Cart cart)async{
-    print(cart.toMap());
+  Future<Cart> insert(Cart? cart)async{
+    print(cart!.toMap());
     var dbClient = await db ;
     await dbClient!.insert('cart', cart.toMap());
-    return cart ;
+    return cart;
   }
 
   Future<List<Cart>> getCartList()async{

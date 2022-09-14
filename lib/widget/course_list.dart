@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vcourse/apimodule/api_services.dart';
@@ -9,6 +11,7 @@ import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
 import 'package:vcourse/models/learning.dart';
+import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/course_details.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_container.dart';
@@ -139,12 +142,18 @@ class _CourseListState extends State<CourseList> {
                     fontSize: 16.sp,
                   ),
                 ),
-                Text(
-                  'See All',
-                  style: GoogleFonts.nunito(
-                    color: BrandColors.colorText,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14.sp,
+                InkWell(
+                  onTap: ()
+                  {
+                    Get.toNamed(allcourse);
+                  },
+                  child: Text(
+                    'See All',
+                    style: GoogleFonts.nunito(
+                      color: BrandColors.colorText,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               ],
@@ -168,8 +177,8 @@ class _CourseListState extends State<CourseList> {
 
 
                             return Shimmer.fromColors(
-                              baseColor: BrandColors.yellow,
-                              highlightColor: Colors.grey.shade100,
+                              baseColor: BrandColors.colorText,
+                              highlightColor: BrandColors.bgColor,
                               child: Card(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
