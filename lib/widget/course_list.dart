@@ -204,7 +204,7 @@ class _CourseListState extends State<CourseList> {
                           itemCount: snapshot.data?.data?.length,
                           itemBuilder: (BuildContext context, index) {
                             var dataCourse = snapshot.data!.data![index];
-                            String  nameCourse = dataCourse.name![index];
+                           // String  nameCourse = dataCourse.name![index];
                             if(searchController.text.isEmpty){
                               return GestureDetector(
                                 onTap: () {
@@ -417,17 +417,15 @@ class _CourseListState extends State<CourseList> {
                                 ),
                               );
                             }
-                            else if(nameCourse.toLowerCase().contains(searchController.text.toLowerCase()))
+                            else if(dataCourse.name!.toString().toLowerCase().contains(searchController.text.toLowerCase()))
                             {
                               return GestureDetector(
                                 onTap: () {
                                   var courseName = dataCourse.name!.toString();
-                                  var courseInstructor =
-                                  dataCourse.user!.name!.toString();
+                                  var courseInstructor =dataCourse.user!.name!.toString();
 
                                   var coursePrice = dataCourse.price!.toString();
-                                  var courseDiscount =
-                                  dataCourse.discount!.toString();
+                                  var courseDiscount = dataCourse.discount!.toString();
                                   var courseImage = dataCourse.thumbnail!.toString();
                                   var courseDescription = dataCourse.description!.toString();
                                   var courserRequirement = dataCourse.requirments!.toString();
