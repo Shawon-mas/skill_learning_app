@@ -42,27 +42,8 @@ class _CategoriesListState extends State<CategoriesList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-                onTap: () {
-                  setState(() {
-                    btnColor = BrandColors.colorBrown;
-                  });
-                  print("ok");
-                },
-                child: chip("Programming", BrandColors.colorBrown)),
-            SizedBox(width: 7.w,),
-            GestureDetector(
-                onTap: () {
-                  print("nice");
-                },
-                child: chip("Computer", BrandColors.colorPurple)),
 
-          ],
-        ),
-
+        MultiSelectChip(reportList,colorList),
         SizedBox(height: 50.h,),
         Center(
           child: OutlinedButton(
@@ -70,6 +51,7 @@ class _CategoriesListState extends State<CategoriesList> {
             onPressed: () {},
             child: Text("Continue"),
             style: OutlinedButton.styleFrom(
+                backgroundColor: btnColor,
                 padding: EdgeInsets.all(10.0),
                 fixedSize: Size(300.w, 45.h),
                 side: BorderSide(color: BrandColors.colorText, width: 1),
@@ -86,32 +68,8 @@ class _CategoriesListState extends State<CategoriesList> {
     );
   }
 
-  Widget chip(String label, Color color) {
-    return Chip(
-        labelPadding: EdgeInsets.all(5.0),
-        avatar: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          child: Icon(Icons.add, color: BrandColors.colorText,),
-        ),
-        label: Text(
-          label,
-          style: GoogleFonts.nunito(
-              color: BrandColors.colorText,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w600
-          ),
-        ),
-        backgroundColor: btnColor,
-
-        padding: EdgeInsets.all(6.0),
-        side: BorderSide(
-          width: 1,
-          color: color,
-        )
-    );
-  }
 }
-/*class MultiSelectChip extends StatefulWidget {
+class MultiSelectChip extends StatefulWidget {
   final List<String> reportList;
   final List<Color> colorList;
 
@@ -121,6 +79,9 @@ class _CategoriesListState extends State<CategoriesList> {
   _MultiSelectChipState createState() => _MultiSelectChipState();
 }
 class _MultiSelectChipState extends State<MultiSelectChip> {
+  Color iconColor = BrandColors.colorText;
+  List<String> selectedChoices = [];
+
   String selectedChoice = "";
   // this function will build and return the choice list
   _buildChoiceList() {
@@ -130,16 +91,23 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
         padding: const EdgeInsets.all(6.0),
         child: ChoiceChip(
           backgroundColor: BrandColors.bgColor,
+          avatar: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            child: Icon(Icons.add, color: BrandColors.colorText,),
+          ),
           selectedColor: widget.colorList[0],
           label: Text(item),
-          selected: selectedChoice == item,
+          selected: selectedChoices.contains(item),
             side: BorderSide(
               width: 1,
-              color: widget.colorList[widget.colorList.length],
+              color: widget.colorList[0],
             ),
           onSelected: (selected) {
             setState(() {
-              selectedChoice = item;
+
+              selectedChoices.contains(item)
+                  ? selectedChoices.remove(item)
+                  : selectedChoices.add(item);
             });
           },
         ),
@@ -153,7 +121,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
       children: _buildChoiceList(),
     );
   }
-}*/
+}
 
 
 

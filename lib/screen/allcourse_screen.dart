@@ -1,6 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:vcourse/apimodule/api_services.dart';
+import 'package:vcourse/constants/image_strings.dart';
+import 'package:vcourse/cousemodule/models/CourseModel.dart';
+import 'package:vcourse/screen/course_details.dart';
+import 'package:vcourse/widget/all_courses.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/primary_toolbar.dart';
+import 'package:vcourse/widget/text_widget.dart';
 
 class AllCourseScreen extends StatefulWidget {
   const AllCourseScreen({Key? key}) : super(key: key);
@@ -10,7 +21,36 @@ class AllCourseScreen extends StatefulWidget {
 }
 
 class _AllCourseScreenState extends State<AllCourseScreen> {
-  late int defaultChoiceIndex;
+  /**/
+  TextEditingController searchController=TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // defaultChoiceIndex = 0;
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ApiServices apiServices = ApiServices();
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: CustomToolbar(value: 'All courses'),
+      body: AllCourse(),
+    );
+  }
+
+
+}
+/*
+late int defaultChoiceIndex;
   List<String> _choicesList = [
     "All Courses",
     "Programming",
@@ -22,36 +62,11 @@ class _AllCourseScreenState extends State<AllCourseScreen> {
     "Research & Development"
   ];
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    defaultChoiceIndex = 0;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomToolbar(value: 'All courses'),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: chip(),
-
-          ),
-          defaultChoiceIndex==null
+ defaultChoiceIndex==null
               ?Container()
               :Text('${_choicesList[defaultChoiceIndex]}'),
-
-
-
-        ],
-      ),
-    );
-  }
-
-  Widget chip() {
+              ================
+ Widget chip() {
     return Wrap(
       spacing: 8,
       children: List.generate(_choicesList.length, (index) {
@@ -79,4 +94,4 @@ class _AllCourseScreenState extends State<AllCourseScreen> {
       }),
     );
   }
-}
+ */

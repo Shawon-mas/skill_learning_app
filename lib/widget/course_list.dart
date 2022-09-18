@@ -29,7 +29,12 @@ class _CourseListState extends State<CourseList> {
     Learning(discoverAccess, discoverLifeTimeText, discoverLifeTimeDesText),
   ];
   TextEditingController searchController=TextEditingController();
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    searchController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,8 +214,7 @@ class _CourseListState extends State<CourseList> {
                               return GestureDetector(
                                 onTap: () {
                                   var courseName = dataCourse.name!.toString();
-                                  var courseInstructor =
-                                  dataCourse.user!.name!.toString();
+                                  var courseInstructor = dataCourse.user!.name!.toString();
 
                                   var coursePrice = dataCourse.price!.toString();
                                   var courseDiscount = dataCourse.discount!.toString();
@@ -219,7 +223,7 @@ class _CourseListState extends State<CourseList> {
                                   var courserRequirement = dataCourse.requirments!.toString();
                                   var courserForWho = dataCourse.forwho!.toString();
                                   var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
-                                  var courseId=dataCourse.id!;
+                                  var courseId=dataCourse.id;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -423,7 +427,6 @@ class _CourseListState extends State<CourseList> {
                                 onTap: () {
                                   var courseName = dataCourse.name!.toString();
                                   var courseInstructor =dataCourse.user!.name!.toString();
-
                                   var coursePrice = dataCourse.price!.toString();
                                   var courseDiscount = dataCourse.discount!.toString();
                                   var courseImage = dataCourse.thumbnail!.toString();

@@ -24,6 +24,7 @@ import 'package:vcourse/widget/text_widget.dart';
 
 
 class CourseDetails extends StatefulWidget {
+  
   final String courseName, courseInstructor,  coursePrice,
       courseDisCount,courseImage,courseDescription,courserRequirement,
       courserForWho,courseWhatWillLearn;
@@ -55,8 +56,7 @@ class _CourseDetailsState extends State<CourseDetails> {
   @override
   void initState() {
     super.initState();
-   var id=widget.courseId;
-    print(id);
+
 
   }
 
@@ -238,7 +238,7 @@ class _CourseDetailsState extends State<CourseDetails> {
               {
                 if(isLogging)
                 {
-                  dbHelper?.insert(
+                  dbHelper.insert(
                     Cart(
                       courseId: widget.courseId,
                       courseName: widget.courseName,
@@ -246,8 +246,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                       courseImage: widget.courseImage,
                       coursePrice: widget.coursePrice)
                   ).then((value) {
-                
-
+                    print("value:"+value.toString());
                     cart.addTotalPrice(double.parse(widget.coursePrice));
                     cart.addCounter();
                     final snackBar = SnackBar(
@@ -262,7 +261,8 @@ class _CourseDetailsState extends State<CourseDetails> {
 
                   }).onError((error, stackTrace) {
 
-                    print(error.toString());
+                    print("Error:"+error.toString());
+                    print("stackTrace: "+stackTrace.toString());
                     final snackBar = SnackBar(
                       backgroundColor: BrandColors.colorRed,
                       content: TextWidget(
@@ -273,6 +273,9 @@ class _CourseDetailsState extends State<CourseDetails> {
                       ), duration: Duration(seconds: 2),);
                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
+
+
+
 
                 }else{
                  //  Get.snackbar("You are not eligible for enroll", "Please login for enrolling");

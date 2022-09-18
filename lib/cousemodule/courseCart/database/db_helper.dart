@@ -4,7 +4,15 @@ import 'package:path/path.dart';
 import 'dart:io' as io;
 
 import 'package:vcourse/cousemodule/courseCart/cart_model.dart';
+/*
+  Future<Database?> get db async {
+    if(_db != null){
+      return _db!;
+    }
 
+    _db = await initDatabase();
+  }
+ */
 
 class DBHelper {
 
@@ -30,9 +38,15 @@ class DBHelper {
         .execute('CREATE TABLE cart (courseId INTEGER PRIMARY KEY ,courseName TEXT,coursePrice TEXT, courseInstructor TEXT , courseImage TEXT )');
   }
 
-  Future<Cart> insert(Cart? cart)async{
-    print(cart!.toMap());
+  Future<Cart> insert(Cart cart)async{
+    //print(cart.toMap());
     var dbClient = await db ;
+
+    if(dbClient == null)
+    {
+        dbClient = await db;
+    }
+
     await dbClient!.insert('cart', cart.toMap());
     return cart;
   }
