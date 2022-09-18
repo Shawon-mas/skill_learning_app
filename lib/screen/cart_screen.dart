@@ -162,6 +162,7 @@ class _CartScreenState extends State<CartScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                           SizedBox(height: 10.h,),
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
