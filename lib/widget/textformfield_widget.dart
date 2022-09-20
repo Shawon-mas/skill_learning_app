@@ -4,14 +4,14 @@ import 'package:vcourse/widget/brand_color.dart';
 class TextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final String errorText;
+  final String? errorText;
   final String? secondaryErrorText;
   final IconData iconData;
   final TextInputType type;
 
   const TextFieldWidget({
     Key? key,
-    required this.controller, required this.hintText, required this.errorText,
+    required this.controller,  required this.hintText,  this.errorText,
     required this.iconData, required this.type, this.secondaryErrorText,
   }) : super(key: key);
 

@@ -8,12 +8,10 @@ import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/utilites/utils.dart';
 
 import 'package:vcourse/routes/routes.dart';
-import 'package:vcourse/utilites/utils.dart';
-import 'package:another_flushbar/flushbar.dart';
-import 'package:another_flushbar/flushbar_route.dart';
+
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/text_widget.dart';
-import 'package:provider/provider.dart';
+
 
 
 
@@ -93,31 +91,43 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
 
-                    child: TextFormField(
-                      focusNode: emailFocusNode,
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      onFieldSubmitted: (value){
-                        Utils.fieldFocusedChage(context, emailFocusNode, passwordFocusNode);
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: BrandColors.colorWhite,
-
-                        prefixIcon: Icon(
-                            Icons.email_outlined,
-                            color: Color.fromRGBO(0, 48, 73, 0.5)
-                        ),
-                        hintText: signInEmailHint,
-                        hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
-                        contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,
-                            style: BorderStyle.none,),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(1, 1),
+                              blurRadius: 2,
+                              spreadRadius: 0// Shadow position
+                          ),
+                        ],
                       ),
+                      child: TextFormField(
+                        focusNode: emailFocusNode,
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        onFieldSubmitted: (value){
+                          Utils.fieldFocusedChage(context, emailFocusNode, passwordFocusNode);
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: BrandColors.colorWhite,
 
+                          prefixIcon: Icon(
+                              Icons.email_outlined,
+                              color: Color.fromRGBO(0, 48, 73, 0.5)
+                          ),
+                          hintText: signInEmailHint,
+                          hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
+                          contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 0,
+                              style: BorderStyle.none,),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+
+                      ),
                     ),
 
 
@@ -128,53 +138,65 @@ class _SignInScreenState extends State<SignInScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Center(
-                    child: TextFormField(
-                      focusNode: passwordFocusNode,
-                      controller: passwordController,
-                      keyboardType: TextInputType.text,
-                      obscureText: _isObscure,
-                      onChanged: (text){
-                        if(passwordController.text.isEmpty){
-                          setState(() {
-                            btnColor = Colors.white;
-                            btnText = BrandColors.colorGrey;
-                          });
-                        }else if (passwordController.text.length<6){
-                          setState(() {
-                            btnColor = Colors.white;
-                            btnText = BrandColors.colorGrey;
-                          });
-                        }else{
-                          setState(() {
-                            btnColor = BrandColors.yellow;
-                            btnText = BrandColors.colorWhite;
-                          });
-                        }
-                      },
-                      decoration: InputDecoration(
-                        filled: true,
-                          fillColor: BrandColors.colorWhite,
-                          prefixIcon: Icon(
-                              Icons.lock_open_rounded,
-                              color: Color.fromRGBO(0, 48, 73, 0.5)
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(1, 1),
+                              blurRadius: 2,
+                              spreadRadius: 0// Shadow position
                           ),
-                          suffixIcon: IconButton(onPressed: ()
-                          {
-                            setState(() {
-                              _isObscure = !_isObscure;
-                            });
-
-                          }, icon: Icon(_isObscure?Icons.visibility : Icons.visibility_off,)),
-                          hintText: signInPasswordHint,
-                          hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
-                          contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(width: 0,
-                            style: BorderStyle.none,),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
+                        ],
                       ),
+                      child: TextFormField(
+                        focusNode: passwordFocusNode,
+                        controller: passwordController,
+                        keyboardType: TextInputType.text,
+                        obscureText: _isObscure,
+                        onChanged: (text){
+                          if(passwordController.text.isEmpty){
+                            setState(() {
+                              btnColor = Colors.white;
+                              btnText = BrandColors.colorGrey;
+                            });
+                          }else if (passwordController.text.length<6){
+                            setState(() {
+                              btnColor = Colors.white;
+                              btnText = BrandColors.colorGrey;
+                            });
+                          }else{
+                            setState(() {
+                              btnColor = BrandColors.yellow;
+                              btnText = BrandColors.colorWhite;
+                            });
+                          }
+                        },
+                        decoration: InputDecoration(
+                          filled: true,
+                            fillColor: BrandColors.colorWhite,
+                            prefixIcon: Icon(
+                                Icons.lock_open_rounded,
+                                color: Color.fromRGBO(0, 48, 73, 0.5)
+                            ),
+                            suffixIcon: IconButton(onPressed: ()
+                            {
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
 
+                            }, icon: Icon(_isObscure?Icons.visibility : Icons.visibility_off,)),
+                            hintText: signInPasswordHint,
+                            hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
+                            contentPadding: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 15.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 0,
+                              style: BorderStyle.none,),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+
+                      ),
                     ),
                   ),
                 ),
@@ -219,9 +241,11 @@ class _SignInScreenState extends State<SignInScreen> {
                            Utils.flushBarErrorMessage("Enter an email or username", context);
                          }else if(passwordController.text.isEmpty){
                            Utils.flushBarErrorMessage("Enter password", context);
+                         }else if (passwordController.text.length<6){
+                           Utils.flushBarErrorMessage("Password length must be 6 digit", context);
                          }
                          else{
-                           Get.toNamed(discover);
+                           Get.toNamed(home);
                          }
                        });
 

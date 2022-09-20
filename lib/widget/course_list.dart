@@ -299,9 +299,7 @@ class _CourseListState extends State<CourseList> {
                                                 Colors.transparent,
                                               ),
                                               //2nd row
-                                              SizedBox(
-                                                width: 7.w,
-                                              ),
+                                            SizedBox(width: 7.w,),
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -310,7 +308,7 @@ class _CourseListState extends State<CourseList> {
                                                     dataCourse.user!.name!
                                                         .toString(),
                                                     style: GoogleFonts.nunito(
-                                                        fontSize: 14.sp,
+                                                        fontSize: 12.sp,
                                                         color: BrandColors
                                                             .colorTextBlue,
                                                         fontWeight:
@@ -488,29 +486,27 @@ class _CourseListState extends State<CourseList> {
                                           height: 5,
                                         ),
                                         //3rd column inside 3 three row
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            children: [
-                                              //1st row inside 3rd column
-                                              CircleAvatar(
-                                                radius: 20,
-                                                backgroundImage: NetworkImage(
-                                                    'https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
-                                                // AssetImage('assets/images/instructor_three.jpg'),
-                                                backgroundColor:
-                                                Colors.transparent,
-                                              ),
-                                              //2nd row
-                                              SizedBox(
-                                                width: 7.w,
-                                              ),
-                                              Column(
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: [
+                                            //1st row inside 3rd column
+                                            CircleAvatar(
+                                              radius: 20,
+                                              backgroundImage: NetworkImage(
+                                                  'https://vcourse.net/${dataCourse.thumbnail!.toString()}'),
+                                              // AssetImage('assets/images/instructor_three.jpg'),
+                                              backgroundColor:
+                                              Colors.transparent,
+                                            ),
+                                            //2nd row
+                                            SizedBox(
+                                              width: 7.w,
+                                            ),
+                                            Expanded(
+                                              child: Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                                 children: [
@@ -535,34 +531,34 @@ class _CourseListState extends State<CourseList> {
                                                   ),
                                                 ],
                                               ),
-                                              //3rd  row
-                                              new Spacer(),
-                                              Column(
-                                                children: [
-                                                  Text(
-                                                    '৳${dataCourse.price!.toString()}',
-                                                    style: GoogleFonts.nunito(
-                                                        fontSize: 12.sp,
-                                                        color: BrandColors
-                                                            .colorTextBlue,
-                                                        fontWeight:
-                                                        FontWeight.w400),
-                                                  ),
-                                                  Text(
-                                                    '৳${dataCourse.oldPrice!.toString()}',
-                                                    style: GoogleFonts.nunito(
-                                                        decoration: TextDecoration
-                                                            .lineThrough,
-                                                        fontSize: 12.sp,
-                                                        color: BrandColors
-                                                            .colorTextBlue,
-                                                        fontWeight:
-                                                        FontWeight.w400),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                            //3rd  row
+
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  '৳${dataCourse.price!.toString()}',
+                                                  style: GoogleFonts.nunito(
+                                                      fontSize: 12.sp,
+                                                      color: BrandColors
+                                                          .colorTextBlue,
+                                                      fontWeight:
+                                                      FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  '৳${dataCourse.oldPrice!.toString()}',
+                                                  style: GoogleFonts.nunito(
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      fontSize: 12.sp,
+                                                      color: BrandColors
+                                                          .colorTextBlue,
+                                                      fontWeight:
+                                                      FontWeight.w400),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
                                           height: 10,
@@ -637,6 +633,7 @@ class _CourseListState extends State<CourseList> {
                   }
                 }),
           ),
+
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),

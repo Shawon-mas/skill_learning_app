@@ -13,7 +13,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
    bool isVisible=false;
   @override
   Widget build(BuildContext context) {
-    final height=MediaQuery.of(context).size.height*1;
+
     return Scaffold(
       body: Card(
         child: SizedBox(
@@ -32,7 +32,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                     size: 14.sp,
                     fontWeight: FontWeight.w700,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   InkWell(
                       onTap: (){
                         setState(() {
@@ -40,22 +40,19 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                           ;
                         });
                       },
-                      child: Icon(Icons.edit))
+                      child: Icon(Icons.edit,size: 30,))
                 ],),
-
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextFormField(
-
-                  keyboardType: TextInputType.emailAddress,
+                  enabled:isVisible? true:false,
+                  initialValue: "Shawon",
+                  keyboardType: TextInputType.text,
                   onFieldSubmitted: (value){
 
                   },
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: BrandColors.bgColor,
-
-
-                    hintText: 'Shawon',
                     hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
                     contentPadding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                     border: OutlineInputBorder(
@@ -66,26 +63,24 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                   ),
 
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextWidget(
                   value: 'Phone Number ',
                   color: BrandColors.colorBlue,
                   size: 14.sp,
                   fontWeight: FontWeight.w700,
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextFormField(
-
-                  keyboardType: TextInputType.emailAddress,
+                  enabled:isVisible? true:false,
+                  initialValue: "01776646603",
+                  keyboardType: TextInputType.number,
                   onFieldSubmitted: (value){
 
                   },
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: BrandColors.bgColor,
-
-
-                    hintText: '01776646603',
                     hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
                     contentPadding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                     border: OutlineInputBorder(
@@ -96,16 +91,17 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                   ),
 
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextWidget(
                   value: 'Email',
                   color: BrandColors.colorBlue,
                   size: 14.sp,
                   fontWeight: FontWeight.w700,
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextFormField(
-
+                  enabled:isVisible? true:false,
+                  initialValue: "fhbrabby@gmail.com",
                   keyboardType: TextInputType.emailAddress,
                   onFieldSubmitted: (value){
 
@@ -113,9 +109,6 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: BrandColors.bgColor,
-
-
-                    hintText: 'fhbrabby@gmail.com',
                     hintStyle: TextStyle(fontSize: 16.sp, color: Color.fromRGBO(0, 48, 73, 0.5)),
                     contentPadding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                     border: OutlineInputBorder(
@@ -126,14 +119,14 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                   ),
 
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextWidget(
                   value: 'About me',
                   color: BrandColors.colorBlue,
                   size: 14.sp,
                   fontWeight: FontWeight.w700,
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 7.h,),
                 TextFormField(
                   enabled:isVisible? true:false,
                   initialValue: "I am smart",
@@ -157,30 +150,32 @@ class _MyProfileWidgetState extends State<MyProfileWidget> {
                   ),
 
                 ),
-                SizedBox(height: 8.h,),
-                Spacer(),
+
                 Visibility(
                   visible: isVisible,
-                  child: MaterialButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                      height: 50,
-                      minWidth: double.maxFinite,
-                      color: BrandColors.yellow,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 10,bottom: 10),
+                    child: MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                        height: 50,
+                        minWidth: double.maxFinite,
+                        color: BrandColors.yellow,
 
-                      child: Text("Update profile",style: TextStyle(
-                          color: BrandColors.colorWhite,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold
+                        child: Text("Update profile",style: TextStyle(
+                            color: BrandColors.colorWhite,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold
 
-                      ),),
-                      onPressed: ()
-                      {
-                       setState(() {
-                         isVisible=false;
-                       });
+                        ),),
+                        onPressed: ()
+                        {
+                         setState(() {
+                           isVisible=false;
+                         });
 
-                      }
+                        }
 
+                    ),
                   ),
                 ),
 

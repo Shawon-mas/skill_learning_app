@@ -132,7 +132,12 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
 
                 children: [
                   MyProfileWidget(),
-                  InstructorList(),
+                  TextWidget(
+                    value: "Enrolled Courses",
+                    color: BrandColors.colorText,
+                    size: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
                   TextWidget(
                     value: "Completed Courses",
                     color: BrandColors.colorText,
