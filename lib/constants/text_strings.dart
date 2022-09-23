@@ -5,7 +5,7 @@ const String discoverLiveDesText="VCourse is here to give you with the finest li
 const String discoverLifeTimeText="Lifetime Access , Support and Guidelines";
 const String discoverLifeTimeDesText="When a new individual wants to learn, it is critical that they have someone to help them. Don't be concerned because we have a live and simple solution with Instructor for your difficulty. ";
 const String courseDetailsWarningText="You are not eligible for enrolling";
-const String courseDetailsWarningTextLogging="Please login for enrolling";
+const String courseDetailsWarningTextLogging="Please sign up for enrolling";
 const String forgetPassword="Forgot your password?";
 //signIn screen text
 const String welcomeTextSignIn="Welcome back";
@@ -36,3 +36,8 @@ const String instructorThreeName="Sabbir Hussain";
 const String instructorThreeTitle="Instructor";
 const String instructorFourName="Ishtiuq Ahmed Chowdhury";
 const String instructorFourTitle="Instructor";
+
+const String baseurl="https://vcourse.net/api/";
+
+
+

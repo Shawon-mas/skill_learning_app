@@ -13,6 +13,7 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
 import 'package:vcourse/models/learning.dart';
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/course_details.dart';
+import 'package:vcourse/screen/course_details_by_id.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_container.dart';
 
@@ -215,7 +216,6 @@ class _CourseListState extends State<CourseList> {
                                 onTap: () {
                                   var courseName = dataCourse.name!.toString();
                                   var courseInstructor = dataCourse.user!.name!.toString();
-
                                   var coursePrice = dataCourse.price!.toString();
                                   var courseDiscount = dataCourse.discount!.toString();
                                   var courseImage = dataCourse.thumbnail!.toString();
@@ -227,9 +227,9 @@ class _CourseListState extends State<CourseList> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CourseDetails(
+                                          builder: (context) => CourseDetailsById(
                                               courseId: courseId,
-                                              courseDescription:courseDescription,
+                                             /* courseDescription:courseDescription,
                                               courseName: courseName,
                                               courseInstructor: courseInstructor,
                                               coursePrice: coursePrice,
@@ -237,7 +237,7 @@ class _CourseListState extends State<CourseList> {
                                               courseImage: courseImage,
                                               courserForWho:courserForWho,
                                               courseWhatWillLearn:courseWhatWillLearn,
-                                            courserRequirement: courserRequirement,
+                                            courserRequirement: courserRequirement,*/
                                           )));
                                 },
                                 child: Card(
@@ -432,19 +432,12 @@ class _CourseListState extends State<CourseList> {
                                   var courserRequirement = dataCourse.requirments!.toString();
                                   var courserForWho = dataCourse.forwho!.toString();
                                   var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
+                                  var courseId=dataCourse.id;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CourseDetails(
-                                              courseDescription:courseDescription,
-                                              courseName: courseName,
-                                              courseInstructor: courseInstructor,
-                                              coursePrice: coursePrice,
-                                              courseDisCount: courseDiscount,
-                                              courserForWho:courserForWho,
-                                              courseWhatWillLearn:courseWhatWillLearn,
-                                              courserRequirement: courserRequirement,
-                                              courseImage: courseImage)));
+                                          builder: (context) => CourseDetailsById(courseId: courseId,
+                                                      )));
                                 },
                                 child: Card(
                                   child: SizedBox(

@@ -103,6 +103,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
               color: widget.colorList[0],
             ),
           onSelected: (selected) {
+
             setState(() {
 
               selectedChoices.contains(item)

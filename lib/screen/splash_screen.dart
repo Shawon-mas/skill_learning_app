@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       await Future.delayed(Duration(milliseconds: 2500),(){});
       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>TestFile()));
-      Get.offNamed(home);
+      Get.offNamed(introduction);
 
       /*FutureBuilder<bool?>(
         future: preferenceManager.getBoolean("shawon"),

@@ -11,9 +11,7 @@ import 'package:vcourse/cousemodule/courseCart/cart_model.dart';
 import 'package:vcourse/cousemodule/courseCart/cart_provider/cart_provider.dart';
 import 'package:vcourse/cousemodule/courseCart/database/db_helper.dart';
 import 'package:vcourse/routes/routes.dart';
-import 'package:vcourse/screen/test.dart';
 import 'package:vcourse/widget/brand_color.dart';
-
 import 'package:vcourse/widget/custom_button.dart';
 import 'package:vcourse/widget/overview.dart';
 import 'package:vcourse/widget/primary_button.dart';
@@ -47,7 +45,8 @@ class CourseDetails extends StatefulWidget {
 class _CourseDetailsState extends State<CourseDetails> {
 
    DBHelper dbHelper=DBHelper();
-   bool isLogging=true;
+   bool isLogging=true
+   ;
 
   int groupValue = 0;
 
@@ -317,7 +316,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                                   padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
                                   child: CustomButton(
                                     value: "Sign Up",
-                                    buttonColor: BrandColors.colorPrimary,onPressed: (){
+                                    buttonColor: BrandColors.colorPrimary,onPressed: ()
+                                  {
 
                                   },),
                                 ),
