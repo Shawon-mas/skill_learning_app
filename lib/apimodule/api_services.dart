@@ -17,7 +17,7 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
       debugPrint("Response:$data");
       return CourseModel.fromJson(data);
     }else{
-      throw Exception('A network error occurred');
+      throw Exception('Failed to load data');
     }
   }
 
