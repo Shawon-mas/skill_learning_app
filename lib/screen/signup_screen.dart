@@ -8,6 +8,7 @@ import 'package:vcourse/utilites/utils.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/text_widget.dart';
 import 'package:vcourse/widget/textformfield_widget.dart';
+import 'package:http/http.dart' as http;
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -27,6 +28,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey=GlobalKey<FormState>();
   Color btnColor = Colors.white;
   Color btnText = BrandColors.colorGrey;
+  getRegister() async{
+   /* var map=Map
+    var response=http.post(Uri.parse(baseurl+'auth/register'),
+    body: );*/
+  }
+  
   @override
   void dispose() {
     // TODO: implement dispose

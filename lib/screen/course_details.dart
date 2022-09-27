@@ -2,14 +2,18 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:vcourse/constants/image_strings.dart';
 
 import 'package:vcourse/constants/text_strings.dart';
 import 'package:vcourse/cousemodule/courseCart/cart_model.dart';
 import 'package:vcourse/cousemodule/courseCart/cart_provider/cart_provider.dart';
 import 'package:vcourse/cousemodule/courseCart/database/db_helper.dart';
+import 'package:vcourse/models/curriculam.dart';
+
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_button.dart';
@@ -43,7 +47,9 @@ class CourseDetails extends StatefulWidget {
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-
+  List<Curr> currculam=[
+  Curr('curriculamImage', 'curriculamLockImage', 'curriculamTitle', 'learningDes')
+  ];
    DBHelper dbHelper=DBHelper();
    bool isLogging=true
    ;
@@ -65,8 +71,7 @@ class _CourseDetailsState extends State<CourseDetails> {
     List<Widget> bodies = [
       OverView(value_one: widget.courseDescription,value_two:widget.courserRequirement,value_three: widget.courserForWho,value_four: widget.courseWhatWillLearn ,
           number: groupValue),
-      OverView(value_one: widget.courseDescription,value_two:widget.courserRequirement,value_three: widget.courserForWho,value_four: widget.courseWhatWillLearn ,
-          number: groupValue),
+      Curriculam(),
       InstructorCourse(),
 
 
@@ -435,6 +440,25 @@ class _CourseDetailsState extends State<CourseDetails> {
       ),
     );
   }
+
+  Widget Curriculam(){
+   return Card(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(discoverLessonIcon),
+                  TextWidget(value: '3 Lesson',color: BrandColors.colorText,size: 12.sp,fontWeight: FontWeight.w500,)
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+   );
+}
 
 
 }

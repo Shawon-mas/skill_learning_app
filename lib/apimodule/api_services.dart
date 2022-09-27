@@ -1,10 +1,9 @@
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:vcourse/constants/text_strings.dart';
-import 'package:vcourse/cousemodule/models/CourseByIdModel.dart';
+import 'package:vcourse/cousemodule/models/CourseDetailsModel.dart';
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
 
   class ApiServices{
@@ -12,25 +11,25 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
    Future<CourseModel> getCourseApi() async{
     var link=baseurl+'courses';
     final response= await http.get(Uri.parse(link));
-    var data=jsonDecode(response.body.toString());
-    if(response.statusCode==200){
 
-      debugPrint("Respnse:$data");
+    if(response.statusCode==200){
+      var data=jsonDecode(response.body);
+      debugPrint("Response:$data");
       return CourseModel.fromJson(data);
     }else{
-      return CourseModel.fromJson(data);
+      throw Exception('A network error occurred');
     }
   }
-   Future<course_model_byId> getCourseApiById(int category_id) async{
-     var link='https://vcourse.net/api/${category_id}/show';
-     final response= await http.get(Uri.parse(link));
-     var data=jsonDecode(response.body.toString());
-     if(response.statusCode==200){
 
-       debugPrint("Respnse:$data");
-       return course_model_byId.fromJson(data);
+   Future<CourseDetailsModel> getCourseApiById(int categoryId) async{
+     var link=baseurl+'courses/$categoryId/show';
+     final response= await http.get(Uri.parse(link));
+     if(response.statusCode==200){
+       var data=jsonDecode(response.body);
+       debugPrint("Response:$data");
+       return CourseDetailsModel.fromJson(data);
      }else{
-       return course_model_byId.fromJson(data);
+       throw Exception('Failed to load data');
      }
    }
 

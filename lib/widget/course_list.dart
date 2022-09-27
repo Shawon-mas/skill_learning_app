@@ -14,6 +14,7 @@ import 'package:vcourse/models/learning.dart';
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/course_details.dart';
 import 'package:vcourse/screen/course_details_by_id.dart';
+import 'package:vcourse/screen/course_show_screen.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_container.dart';
 
@@ -223,13 +224,13 @@ class _CourseListState extends State<CourseList> {
                                   var courserRequirement = dataCourse.requirments!.toString();
                                   var courserForWho = dataCourse.forwho!.toString();
                                   var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
-                                  var courseId=dataCourse.id;
+                                  var courseId=dataCourse.id!;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CourseDetailsById(
+                                          builder: (context) => CourseShowScreen(
                                               courseId: courseId,
-                                             /* courseDescription:courseDescription,
+                                            /*  courseDescription:courseDescription,
                                               courseName: courseName,
                                               courseInstructor: courseInstructor,
                                               coursePrice: coursePrice,
@@ -432,11 +433,21 @@ class _CourseListState extends State<CourseList> {
                                   var courserRequirement = dataCourse.requirments!.toString();
                                   var courserForWho = dataCourse.forwho!.toString();
                                   var courseWhatWillLearn = dataCourse.whatWillLearn!.toString();
-                                  var courseId=dataCourse.id;
+                                  var courseId=dataCourse.id!;
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CourseDetailsById(courseId: courseId,
+                                          builder: (context) => CourseShowScreen(
+                                            courseId: courseId,
+                                            /*courseDescription:courseDescription,
+                                            courseName: courseName,
+                                            courseInstructor: courseInstructor,
+                                            coursePrice: coursePrice,
+                                            courseDisCount: courseDiscount,
+                                            courseImage: courseImage,
+                                            courserForWho:courserForWho,
+                                            courseWhatWillLearn:courseWhatWillLearn,
+                                            courserRequirement: courserRequirement,*/
                                                       )));
                                 },
                                 child: Card(
