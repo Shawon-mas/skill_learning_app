@@ -497,7 +497,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
   Widget OverView() {
     ApiServices apiServices = ApiServices();
     return FutureBuilder<CourseDetailsModel>(
-        future: apiServices.getCourseApiById(widget.courseId!),
+        future: apiServices.getCourseApiById(widget.courseId),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
