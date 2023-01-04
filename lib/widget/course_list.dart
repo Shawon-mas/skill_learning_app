@@ -18,6 +18,8 @@ import 'package:vcourse/screen/course_show_screen.dart';
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_container.dart';
 
+import '../controller/course_controller.dart';
+
 class CourseList extends StatefulWidget {
   const CourseList({Key? key}) : super(key: key);
 
@@ -30,7 +32,9 @@ class _CourseListState extends State<CourseList> {
     Learning(discoverLessonIcon, discoverLiveText, discoverLiveDesText),
     Learning(discoverAccess, discoverLifeTimeText, discoverLifeTimeDesText),
   ];
-  TextEditingController searchController=TextEditingController();
+  TextEditingController searchController = TextEditingController();
+  final CourseController courseController = Get.put(CourseController());
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -105,24 +109,20 @@ class _CourseListState extends State<CourseList> {
               ]),
               child: TextFormField(
                 controller: searchController,
-                onChanged: (value){
-                     setState(()
-                     {
-
-                     });
-
+                onChanged: (value) {
+                  setState(() {});
                 },
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     prefixIcon:
-                    Icon(Icons.search, color: BrandColors.colorPrimary),
+                        Icon(Icons.search, color: BrandColors.colorPrimary),
                     hintText: "Search",
                     hintStyle: TextStyle(
                         fontSize: 18.sp, color: BrandColors.colorText),
                     contentPadding:
-                    EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         borderSide: BorderSide(color: Colors.white)),
@@ -150,8 +150,7 @@ class _CourseListState extends State<CourseList> {
                   ),
                 ),
                 InkWell(
-                  onTap: ()
-                  {
+                  onTap: () {
                     Get.toNamed(allcourse);
                   },
                   child: Text(
@@ -169,7 +168,270 @@ class _CourseListState extends State<CourseList> {
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: FutureBuilder<CourseModel>(
+            child: Obx(() =>
+                courseController.isLoading.value? Container(
+                  width: double.maxFinite,
+                  height: 323.h,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: courseController.courseList.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: SizedBox(
+                            width: 300.w,
+                            height: 323.h,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 6,
+                                  child: Container(
+                                    height: 180.h,
+                                    width: 323.w,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                                'https://vcourse.net/${courseController.courseList[index].thumbnail.toString()}'),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                ),
+                                SizedBox(height: 5,),
+                                //2nd column
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Text(
+                                    courseController.courseList[index].name
+                                        .toString(),
+                                    style: GoogleFonts.nunito(
+                                        fontSize: 14.sp,
+                                        color: BrandColors.colorText,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      //1st row inside 3rd column
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundImage: NetworkImage(
+                                            'https://vcourse.net/${courseController.courseList[index].user!.profilePicture.toString()}'),
+                                        // AssetImage('assets/images/instructor_three.jpg'),
+                                        backgroundColor:
+                                        Colors.transparent,
+                                      ),
+                                      //2nd row
+                                      SizedBox(width: 7.w,),
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            courseController.courseList[index].user!.name.toString()
+                                                .toString(),
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 12.sp,
+                                                color: BrandColors
+                                                    .colorTextBlue,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                          ),
+                                          Text(
+                                            "Instructor",
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 12.sp,
+                                                color: BrandColors
+                                                    .colorTextBlue,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                      //3rd  row
+                                      new Spacer(),
+                                      Column(
+                                        children: [
+                                          Text(
+                                            '৳${courseController.courseList[index].price.toString()}',
+                                            style: GoogleFonts.nunito(
+                                                fontSize: 12.sp,
+                                                color: BrandColors
+                                                    .colorTextBlue,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                          ),
+                                          Text(
+                                            '৳${courseController.courseList[index].oldPrice.toString()}',
+                                            style: GoogleFonts.nunito(
+                                                decoration: TextDecoration
+                                                    .lineThrough,
+                                                fontSize: 12.sp,
+                                                color: BrandColors
+                                                    .colorTextBlue,
+                                                fontWeight:
+                                                FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          discoverLessonIcon,
+                                          height: 15.h,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          courseController.courseList[index].numberOfLessons.toString(),
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 12.sp,
+                                              color: BrandColors
+                                                  .colorTextBlue,
+                                              fontWeight:
+                                              FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          discoverHoursIcon,
+                                          height: 15.h,
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        Text(
+                                          courseController.courseList[index].timeDuration.toString(),
+                                          style: GoogleFonts.nunito(
+                                              fontSize: 12.sp,
+                                              color: BrandColors
+                                                  .colorTextBlue,
+                                              fontWeight:
+                                              FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ):Center(child: CircularProgressIndicator())
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  discoverLearnText,
+                  style: GoogleFonts.nunito(
+                    color: BrandColors.colorText,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.maxFinite,
+              height: 200.h,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: learning.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var learningList = learning[index];
+                    return Card(
+                      child: SizedBox(
+                        width: 293.w,
+                        height: 160.h,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(
+                                learningList.learningImage.toString(),
+                                height: 20.h,
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Text(
+                                learningList.learningTitle.toString(),
+                                style: GoogleFonts.nunito(
+                                    fontSize: 14.sp,
+                                    color: BrandColors.colorTextBlue,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Text(
+                                learningList.learningDes.toString(),
+                                style: GoogleFonts.nunito(
+                                    fontSize: 12.sp,
+                                    color: BrandColors.colorTextBlue,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+/*
+FutureBuilder<CourseModel>(
                 future: apiServices.getCourseApi(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -228,9 +490,9 @@ class _CourseListState extends State<CourseList> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CourseShowScreen(
+                                          builder: (context) => CourseDetails(
                                               courseId: courseId,
-                                            /*  courseDescription:courseDescription,
+                                              courseDescription:courseDescription,
                                               courseName: courseName,
                                               courseInstructor: courseInstructor,
                                               coursePrice: coursePrice,
@@ -238,7 +500,7 @@ class _CourseListState extends State<CourseList> {
                                               courseImage: courseImage,
                                               courserForWho:courserForWho,
                                               courseWhatWillLearn:courseWhatWillLearn,
-                                            courserRequirement: courserRequirement,*/
+                                            courserRequirement: courserRequirement,
                                           )));
                                 },
                                 child: Card(
@@ -437,9 +699,9 @@ class _CourseListState extends State<CourseList> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CourseShowScreen(
+                                          builder: (context) => CourseDetails(
                                             courseId: courseId,
-                                            /*courseDescription:courseDescription,
+                                            courseDescription:courseDescription,
                                             courseName: courseName,
                                             courseInstructor: courseInstructor,
                                             coursePrice: coursePrice,
@@ -447,7 +709,7 @@ class _CourseListState extends State<CourseList> {
                                             courseImage: courseImage,
                                             courserForWho:courserForWho,
                                             courseWhatWillLearn:courseWhatWillLearn,
-                                            courserRequirement: courserRequirement,*/
+                                            courserRequirement: courserRequirement,
                                                       )));
                                 },
                                 child: Card(
@@ -635,85 +897,5 @@ class _CourseListState extends State<CourseList> {
                           }),
                     );
                   }
-                }),
-          ),
-
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  discoverLearnText,
-                  style: GoogleFonts.nunito(
-                    color: BrandColors.colorText,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: double.maxFinite,
-              height: 200.h,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: learning.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var learningList = learning[index];
-                    return Card(
-                      child: SizedBox(
-                        width: 293.w,
-                        height: 160.h,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SvgPicture.asset(
-                                learningList.learningImage.toString(),
-                                height: 20.h,
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                learningList.learningTitle.toString(),
-                                style: GoogleFonts.nunito(
-                                    fontSize: 14.sp,
-                                    color: BrandColors.colorTextBlue,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Text(
-                                learningList.learningDes.toString(),
-                                style: GoogleFonts.nunito(
-                                    fontSize: 12.sp,
-                                    color: BrandColors.colorTextBlue,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+                })
+ */

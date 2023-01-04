@@ -21,25 +21,30 @@ import 'package:vcourse/widget/overview.dart';
 import 'package:vcourse/widget/primary_button.dart';
 import 'package:vcourse/widget/text_widget.dart';
 
-
-
-
-
 class CourseDetails extends StatefulWidget {
-  
-  final String courseName, courseInstructor,  coursePrice,
-      courseDisCount,courseImage,courseDescription,courserRequirement,
-      courserForWho,courseWhatWillLearn;
+  final String courseName,
+      courseInstructor,
+      coursePrice,
+      courseDisCount,
+      courseImage,
+      courseDescription,
+      courserRequirement,
+      courserForWho,
+      courseWhatWillLearn;
   final int? courseId;
 
   const CourseDetails(
       {Key? key,
-       required this.courseName,
-       required this.courseInstructor,
-       required this.coursePrice, required this.courseDisCount,
-        required this.courseImage,  required this.courseDescription,
-        required this.courserRequirement, required this.courserForWho,
-        required this.courseWhatWillLearn, this.courseId})
+      required this.courseName,
+      required this.courseInstructor,
+      required this.coursePrice,
+      required this.courseDisCount,
+      required this.courseImage,
+      required this.courseDescription,
+      required this.courserRequirement,
+      required this.courserForWho,
+      required this.courseWhatWillLearn,
+      this.courseId})
       : super(key: key);
 
   @override
@@ -47,76 +52,81 @@ class CourseDetails extends StatefulWidget {
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-  List<Curr> currculam=[
-  Curr('curriculamImage', 'curriculamLockImage', 'curriculamTitle', 'learningDes')
+  List<Curr> currculam = [
+    Curr('curriculamImage', 'curriculamLockImage', 'curriculamTitle',
+        'learningDes')
   ];
-   DBHelper dbHelper=DBHelper();
-   bool isLogging=true
-   ;
+  DBHelper dbHelper = DBHelper();
+  bool isLogging = true;
 
   int groupValue = 0;
-
-
 
   @override
   void initState() {
     super.initState();
-
-
   }
 
-
-  List<Widget> getWidgetsList(){
-
+  List<Widget> getWidgetsList() {
     List<Widget> bodies = [
-      OverView(value_one: widget.courseDescription,value_two:widget.courserRequirement,value_three: widget.courserForWho,value_four: widget.courseWhatWillLearn ,
+      OverView(
+          value_one: widget.courseDescription,
+          value_two: widget.courserRequirement,
+          value_three: widget.courserForWho,
+          value_four: widget.courseWhatWillLearn,
           number: groupValue),
       Curriculam(),
       InstructorCourse(),
-
-
     ];
     return bodies;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgets =  getWidgetsList();
-    final cart=Provider.of<CartProvider>(context);
+    List<Widget> widgets = getWidgetsList();
+    final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       backgroundColor: BrandColors.bgColor,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: GestureDetector(
-          onTap: (){
-            Get.back();
-          },
-            child: Icon(Icons.arrow_back,color: BrandColors.colorTextBlue,)),
-        title: Text('Course Details',style: GoogleFonts.nunito(
-          color: BrandColors.colorTextBlue,fontSize: 18.sp,fontWeight: FontWeight.w600
-        ),),
+            onTap: () {
+              Get.back();
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: BrandColors.colorTextBlue,
+            )),
+        title: Text(
+          'Course Details',
+          style: GoogleFonts.nunito(
+              color: BrandColors.colorTextBlue,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600),
+        ),
         actions: [
-
-
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.toNamed(cartScreen);
-
-              },
+            },
             child: Center(
               child: Badge(
-
-                badgeContent:Consumer<CartProvider>(
-                    builder: (context,value,child)
-                {
-                     return  Text(value.getCounter().toString(),style: GoogleFonts.nunito(color: BrandColors.colorWhite,fontSize: 12.sp),);
-                 }),
+                badgeContent:
+                    Consumer<CartProvider>(builder: (context, value, child) {
+                      return Text(
+                    value.getCounter().toString(),
+                    style: GoogleFonts.nunito(
+                        color: BrandColors.colorWhite, fontSize: 12.sp),
+                  );
+                }),
                 animationDuration: Duration(milliseconds: 300),
-                child:Icon(Icons.shopping_cart,color: BrandColors.colorTextBlue),
+                child:
+                    Icon(Icons.shopping_cart, color: BrandColors.colorTextBlue),
               ),
             ),
           ),
-          SizedBox(width: 20.w,)
+          SizedBox(
+            width: 20.w,
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -127,7 +137,8 @@ class _CourseDetailsState extends State<CourseDetails> {
               height: 150.h,
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -148,7 +159,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                       children: [
                         CircleAvatar(
                           radius: 20,
-                          backgroundImage: NetworkImage('https://vcourse.net/${widget.courseImage}'),
+                          backgroundImage: NetworkImage(
+                              'https://vcourse.net/${widget.courseImage}'),
                           // AssetImage('assets/images/instructor_three.jpg'),
                           backgroundColor: Colors.transparent,
                         ),
@@ -187,18 +199,17 @@ class _CourseDetailsState extends State<CourseDetails> {
                 alignment: Alignment.topCenter,
                 clipBehavior: Clip.none,
                 children: [
-
                   Positioned(
                     top: -50,
                     child: Container(
                       height: 180.h,
                       width: 323.w,
-                       decoration: BoxDecoration(
-                         color: BrandColors.colorBrown,
+                      decoration: BoxDecoration(
+                          color: BrandColors.colorBrown,
                           image: DecorationImage(
-                              image: NetworkImage('https://vcourse.net/${widget.courseImage}'),
-                              fit: BoxFit.cover)
-                       ),
+                              image: NetworkImage(
+                                  'https://vcourse.net/${widget.courseImage}'),
+                              fit: BoxFit.cover)),
                     ),
                     /*Container(
                                 color: Colors.black,
@@ -214,7 +225,6 @@ class _CourseDetailsState extends State<CourseDetails> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
-
                 children: [
                   Text(
                     '৳${widget.coursePrice}',
@@ -232,127 +242,129 @@ class _CourseDetailsState extends State<CourseDetails> {
                         fontWeight: FontWeight.w700),
                   ),
                 ],
-
               ),
             ),
-            SizedBox(height: 7,),
+            SizedBox(
+              height: 7,
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: PrimaryButton(buttonColor: BrandColors.colorText, value: isLogging?"Enroll":"Join and Enroll",onPressed: ()
-              {
-                if(isLogging)
-                {
-                  dbHelper.insert(
-                    Cart(
-                      courseId: widget.courseId,
-                      courseName: widget.courseName,
-                      courseInstructor: widget.courseInstructor,
-                      courseImage: widget.courseImage,
-                      coursePrice: widget.coursePrice)
-                  ).then((value) {
-                    print("value:"+value.toString());
-                    cart.addTotalPrice(double.parse(widget.coursePrice));
-                    cart.addCounter();
-                    final snackBar = SnackBar(
-                      backgroundColor: BrandColors.colorGreenLight,
-                      content: TextWidget(
-                        value: 'Course is added to cart',
-                        color: BrandColors.colorWhite,
-                        size: 14.sp,
-                        fontWeight: FontWeight.w700,
-                      ), duration: Duration(seconds: 2),);
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                  }).onError((error, stackTrace) {
-
-                    print("Error:"+error.toString());
-                    print("stackTrace: "+stackTrace.toString());
-                    final snackBar = SnackBar(
-                      backgroundColor: BrandColors.colorRed,
-                      content: TextWidget(
-                        value: 'Course is already added to cart',
-                        color: BrandColors.colorWhite,
-                        size: 14.sp,
-                        fontWeight: FontWeight.w700,
-                      ), duration: Duration(seconds: 2),);
-                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  });
-
-
-
-
-                }else{
-                 //  Get.snackbar("You are not eligible for enroll", "Please login for enrolling");
-                  Get.bottomSheet(Container(
-                    height: 180.h,
-                    width: 180.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
-                      color: BrandColors.bgColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            courseDetailsWarningText,
-                            style: GoogleFonts.nunito(
-                                fontSize: 18.sp,
-                                color: BrandColors.colorText,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Text(
-                            courseDetailsWarningTextLogging,
-                            style: GoogleFonts.nunito(
-                                fontSize: 18.sp,
-                                color: BrandColors.colorTextBlue,
-                                fontWeight: FontWeight.w700),
-                          ),
-                          Spacer(),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Flexible(
-                                flex: 2,
-                                fit: FlexFit.tight,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
-                                  child: CustomButton(
-                                    value: "Sign Up",
-                                    buttonColor: BrandColors.colorPrimary,onPressed: ()
-                                  {
-
-                                  },),
-                                ),
-                              ),
-                              Flexible(
-                                flex: 1,
-                                fit: FlexFit.tight,
-                                child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(10.0,0,10.0,0),
-                                  child: CustomButton(
-                                    value: "Sign In",
-                                    buttonColor: BrandColors.yellow,onPressed: (){
-
-                                  },),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-
+              child: PrimaryButton(
+                buttonColor: BrandColors.colorText,
+                value: isLogging ? "Enroll" : "Join and Enroll",
+                onPressed: () {
+                  if (isLogging) {
+                    dbHelper
+                        .insert(Cart(
+                            courseId: widget.courseId,
+                            courseName: widget.courseName,
+                            courseInstructor: widget.courseInstructor,
+                            courseImage: widget.courseImage,
+                            coursePrice: widget.coursePrice))
+                        .then((value) {
+                      print("value:" + value.toString());
+                      cart.addTotalPrice(double.parse(widget.coursePrice));
+                      cart.addCounter();
+                      final snackBar = SnackBar(
+                        backgroundColor: BrandColors.colorGreenLight,
+                        content: TextWidget(
+                          value: 'Course is added to cart',
+                          color: BrandColors.colorWhite,
+                          size: 14.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        duration: Duration(seconds: 2),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }).onError((error, stackTrace) {
+                      print("Error:" + error.toString());
+                      print("stackTrace: " + stackTrace.toString());
+                      final snackBar = SnackBar(
+                        backgroundColor: BrandColors.colorRed,
+                        content: TextWidget(
+                          value: 'Course is already added to cart',
+                          color: BrandColors.colorWhite,
+                          size: 14.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        duration: Duration(seconds: 2),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    });
+                  } else {
+                    //  Get.snackbar("You are not eligible for enroll", "Please login for enrolling");
+                    Get.bottomSheet(Container(
+                      height: 180.h,
+                      width: 180.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8)),
+                        color: BrandColors.bgColor,
                       ),
-                    ),
-
-                  )
-
-                  );
-                }
-              },),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              courseDetailsWarningText,
+                              style: GoogleFonts.nunito(
+                                  fontSize: 18.sp,
+                                  color: BrandColors.colorText,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Text(
+                              courseDetailsWarningTextLogging,
+                              style: GoogleFonts.nunito(
+                                  fontSize: 18.sp,
+                                  color: BrandColors.colorTextBlue,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            Spacer(),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  flex: 2,
+                                  fit: FlexFit.tight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10.0, 0, 10.0, 0),
+                                    child: CustomButton(
+                                      value: "Sign Up",
+                                      buttonColor: BrandColors.colorPrimary,
+                                      onPressed: () {},
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  fit: FlexFit.tight,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        10.0, 0, 10.0, 0),
+                                    child: CustomButton(
+                                      value: "Sign In",
+                                      buttonColor: BrandColors.yellow,
+                                      onPressed: () {},
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ));
+                  }
+                },
+              ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               color: BrandColors.bgColor,
               child: Column(
@@ -384,25 +396,24 @@ class _CourseDetailsState extends State<CourseDetails> {
                     height: 10,
                   ),
                   widgets[groupValue],
-
                 ],
               ),
             ),
-
           ],
         ),
       ),
     );
   }
-  Widget buildSegment(String text) => Container(
-    padding: EdgeInsets.all(10),
-    child: Text(
-      text,
-      style: GoogleFonts.nunito(fontSize: 18.sp),
-    ),
-  );
 
- Widget InstructorCourse() {
+  Widget buildSegment(String text) => Container(
+        padding: EdgeInsets.all(10),
+        child: Text(
+          text,
+          style: GoogleFonts.nunito(fontSize: 18.sp),
+        ),
+      );
+
+  Widget InstructorCourse() {
     return Card(
       child: SizedBox(
         width: double.maxFinite,
@@ -413,12 +424,14 @@ class _CourseDetailsState extends State<CourseDetails> {
             children: [
               CircleAvatar(
                 radius: 20,
-                backgroundImage: NetworkImage('https://vcourse.net/${widget.courseImage}'),
+                backgroundImage:
+                    NetworkImage('https://vcourse.net/${widget.courseImage}'),
                 // AssetImage('assets/images/instructor_three.jpg'),
-                backgroundColor:
-                Colors.transparent,
+                backgroundColor: Colors.transparent,
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               Text(
                 widget.courseInstructor,
                 style: GoogleFonts.nunito(
@@ -426,7 +439,9 @@ class _CourseDetailsState extends State<CourseDetails> {
                     color: BrandColors.colorText,
                     fontWeight: FontWeight.w600),
               ),
-              SizedBox(height: 10.h,),
+              SizedBox(
+                height: 10.h,
+              ),
               Text(
                 'Instructor',
                 style: GoogleFonts.nunito(
@@ -441,8 +456,8 @@ class _CourseDetailsState extends State<CourseDetails> {
     );
   }
 
-  Widget Curriculam(){
-   return Card(
+  Widget Curriculam() {
+    return Card(
       child: Column(
         children: [
           Row(
@@ -450,15 +465,18 @@ class _CourseDetailsState extends State<CourseDetails> {
               Row(
                 children: [
                   SvgPicture.asset(discoverLessonIcon),
-                  TextWidget(value: '3 Lesson',color: BrandColors.colorText,size: 12.sp,fontWeight: FontWeight.w500,)
+                  TextWidget(
+                    value: '3 Lesson',
+                    color: BrandColors.colorText,
+                    size: 12.sp,
+                    fontWeight: FontWeight.w500,
+                  )
                 ],
               )
             ],
           )
         ],
       ),
-   );
-}
-
-
+    );
+  }
 }

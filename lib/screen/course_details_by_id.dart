@@ -37,7 +37,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
       courseInstructor,
       courseInstructorImage;
   DBHelper dbHelper = DBHelper();
-  bool isLogging = false;
+  bool isLogging = true;
   int groupValue = 0;
 
   @override

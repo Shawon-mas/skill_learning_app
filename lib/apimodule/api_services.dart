@@ -8,10 +8,25 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
 
   class ApiServices{
 
+    static var client=http.Client();
+    static var link=baseurl+'courses';
+
+    static Future<CourseModel> fetchCourses() async{
+      var response=await client.get(Uri.parse(link));
+      if(response.statusCode==200){
+        var data=response.body;
+        debugPrint("Response:$data");
+        return courseModelFromJson(data);
+      }else{
+        throw Exception('Failed to load data') ;
+      }
+
+
+    }
+
    Future<CourseModel> getCourseApi() async{
     var link=baseurl+'courses';
     final response= await http.get(Uri.parse(link));
-
     if(response.statusCode==200){
       var data=jsonDecode(response.body);
       debugPrint("Response:$data");
@@ -30,6 +45,7 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
        return CourseDetailsModel.fromJson(data);
      }else{
        throw Exception('Failed to load data');
+
      }
    }
 

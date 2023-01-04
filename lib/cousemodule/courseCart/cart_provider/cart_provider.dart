@@ -70,6 +70,5 @@ class CartProvider with ChangeNotifier{
   int getCounter (){
     _getPrefItems();
     return  _counter ;
-
   }
 }

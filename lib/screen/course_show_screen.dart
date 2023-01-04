@@ -5,19 +5,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
+
 import 'package:vcourse/apimodule/api_services.dart';
-import 'package:vcourse/constants/text_strings.dart';
-import 'package:vcourse/cousemodule/courseCart/cart_model.dart';
+
 import 'package:vcourse/cousemodule/courseCart/cart_provider/cart_provider.dart';
 import 'package:vcourse/cousemodule/courseCart/database/db_helper.dart';
 import 'package:vcourse/cousemodule/models/CourseDetailsModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:vcourse/screen/cart_screen.dart';
 import 'package:vcourse/widget/brand_color.dart';
-import 'package:vcourse/widget/custom_button.dart';
-import 'package:vcourse/widget/primary_button.dart';
-import 'package:vcourse/widget/text_widget.dart';
+
 
 class CourseShowScreen extends StatefulWidget {
   final int courseId;

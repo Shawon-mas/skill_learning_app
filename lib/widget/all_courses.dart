@@ -115,7 +115,6 @@ class _AllCourseState extends State<AllCourse> {
                                   onTap: () {
                                     var courseName = dataCourse.name!.toString();
                                     var courseInstructor = dataCourse.user!.name!.toString();
-
                                     var coursePrice = dataCourse.price!.toString();
                                     var courseDiscount = dataCourse.discount!.toString();
                                     var courseImage = dataCourse.thumbnail!.toString();
