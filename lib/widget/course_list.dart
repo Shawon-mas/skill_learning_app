@@ -14,7 +14,7 @@ import 'package:vcourse/models/learning.dart';
 import 'package:vcourse/routes/routes.dart';
 import 'package:vcourse/screen/course_details.dart';
 import 'package:vcourse/screen/course_details_by_id.dart';
-import 'package:vcourse/screen/course_show_screen.dart';
+
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/custom_container.dart';
 
@@ -177,78 +177,143 @@ class _CourseListState extends State<CourseList> {
                       shrinkWrap: true,
                       itemCount: courseController.courseList.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          child: SizedBox(
-                            width: 300.w,
-                            height: 323.h,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 6,
-                                  child: Container(
-                                    height: 180.h,
-                                    width: 323.w,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                                'https://vcourse.net/${courseController.courseList[index].thumbnail.toString()}'),
-                                            fit: BoxFit.cover)),
+                        return InkWell(
+                          onTap: (){
+                            courseController.courseId.value=courseController.courseList[index].id.toString();
+                            print(courseController.courseId.value);
+                          },
+                          child: Card(
+                            child: SizedBox(
+                              width: 300.w,
+                              height: 323.h,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: Container(
+                                      height: 180.h,
+                                      width: 323.w,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: CachedNetworkImageProvider(
+                                                  'https://vcourse.net/${courseController.courseList[index].thumbnail}'),
+                                              fit: BoxFit.cover)),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 5,),
-                                //2nd column
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    courseController.courseList[index].name
-                                        .toString(),
-                                    style: GoogleFonts.nunito(
-                                        fontSize: 14.sp,
-                                        color: BrandColors.colorText,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(height: 5,),
+                                  //2nd column
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Text(
+                                      courseController.courseList[index].name.toString(),
+                                      style: GoogleFonts.nunito(
+                                          fontSize: 14.sp,
+                                          color: BrandColors.colorText,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        //1st row inside 3rd column
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundImage: NetworkImage(
+                                              'https://vcourse.net/${courseController.courseList[index].user!.profilePicture.toString()}'),
+                                          // AssetImage('assets/images/instructor_three.jpg'),
+                                          backgroundColor:
+                                          Colors.transparent,
+                                        ),
+                                        //2nd row
+                                        SizedBox(width: 7.w,),
+                                        Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              courseController.courseList[index].user!.name.toString()
+                                                  .toString(),
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 12.sp,
+                                                  color: BrandColors
+                                                      .colorTextBlue,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                            Text(
+                                              "Instructor",
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 12.sp,
+                                                  color: BrandColors
+                                                      .colorTextBlue,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                        //3rd  row
+                                        new Spacer(),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              '৳${courseController.courseList[index].price.toString()}',
+                                              style: GoogleFonts.nunito(
+                                                  fontSize: 12.sp,
+                                                  color: BrandColors
+                                                      .colorTextBlue,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                            Text(
+                                              '৳${courseController.courseList[index].oldPrice.toString()}',
+                                              style: GoogleFonts.nunito(
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  fontSize: 12.sp,
+                                                  color: BrandColors
+                                                      .colorTextBlue,
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
-                                      //1st row inside 3rd column
-                                      CircleAvatar(
-                                        radius: 20,
-                                        backgroundImage: NetworkImage(
-                                            'https://vcourse.net/${courseController.courseList[index].user!.profilePicture.toString()}'),
-                                        // AssetImage('assets/images/instructor_three.jpg'),
-                                        backgroundColor:
-                                        Colors.transparent,
-                                      ),
-                                      //2nd row
-                                      SizedBox(width: 7.w,),
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                      Row(
                                         children: [
-                                          Text(
-                                            courseController.courseList[index].user!.name.toString()
-                                                .toString(),
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 12.sp,
-                                                color: BrandColors
-                                                    .colorTextBlue,
-                                                fontWeight:
-                                                FontWeight.w400),
+                                          SvgPicture.asset(
+                                            discoverLessonIcon,
+                                            height: 15.h,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
                                           ),
                                           Text(
-                                            "Instructor",
+                                            courseController.courseList[index].numberOfLessons.toString(),
                                             style: GoogleFonts.nunito(
                                                 fontSize: 12.sp,
                                                 color: BrandColors
@@ -258,24 +323,18 @@ class _CourseListState extends State<CourseList> {
                                           ),
                                         ],
                                       ),
-                                      //3rd  row
-                                      new Spacer(),
-                                      Column(
+                                      Row(
                                         children: [
-                                          Text(
-                                            '৳${courseController.courseList[index].price.toString()}',
-                                            style: GoogleFonts.nunito(
-                                                fontSize: 12.sp,
-                                                color: BrandColors
-                                                    .colorTextBlue,
-                                                fontWeight:
-                                                FontWeight.w400),
+                                          SvgPicture.asset(
+                                            discoverHoursIcon,
+                                            height: 15.h,
+                                          ),
+                                          SizedBox(
+                                            width: 5.w,
                                           ),
                                           Text(
-                                            '৳${courseController.courseList[index].oldPrice.toString()}',
+                                            courseController.courseList[index].timeDuration.toString(),
                                             style: GoogleFonts.nunito(
-                                                decoration: TextDecoration
-                                                    .lineThrough,
                                                 fontSize: 12.sp,
                                                 color: BrandColors
                                                     .colorTextBlue,
@@ -287,63 +346,9 @@ class _CourseListState extends State<CourseList> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          discoverLessonIcon,
-                                          height: 15.h,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          courseController.courseList[index].numberOfLessons.toString(),
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 12.sp,
-                                              color: BrandColors
-                                                  .colorTextBlue,
-                                              fontWeight:
-                                              FontWeight.w400),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          discoverHoursIcon,
-                                          height: 15.h,
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        Text(
-                                          courseController.courseList[index].timeDuration.toString(),
-                                          style: GoogleFonts.nunito(
-                                              fontSize: 12.sp,
-                                              color: BrandColors
-                                                  .colorTextBlue,
-                                              fontWeight:
-                                              FontWeight.w400),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                              )
+                                ],
                               ),
-                            )
-                              ],
                             ),
                           ),
                         );

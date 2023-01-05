@@ -8,7 +8,7 @@ import 'package:vcourse/apimodule/api_services.dart';
 import 'package:vcourse/constants/image_strings.dart';
 import 'package:vcourse/cousemodule/models/CourseModel.dart';
 import 'package:vcourse/screen/course_details.dart';
-import 'package:vcourse/widget/all_courses.dart';
+
 import 'package:vcourse/widget/brand_color.dart';
 import 'package:vcourse/widget/primary_toolbar.dart';
 import 'package:vcourse/widget/text_widget.dart';
@@ -43,7 +43,7 @@ class _AllCourseScreenState extends State<AllCourseScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomToolbar(value: 'All courses'),
-      body: AllCourse(),
+      body:Container(),
     );
   }
 

@@ -48,9 +48,9 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
 
   List<Widget> getWidgetsList() {
     List<Widget> bodies = [
+ /*     OverView(),
       OverView(),
-      OverView(),
-      InstructorCourse(),
+      InstructorCourse(),*/
     ];
     return bodies;
   }
@@ -108,7 +108,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            FutureBuilder<CourseDetailsModel>(
+          /*  FutureBuilder<CourseDetailsModel>(
                 future: apiServices.getCourseApiById(widget.courseId),
                 builder: (context, AsyncSnapshot<CourseDetailsModel> snapshot) {
                   if (!snapshot.hasData) {
@@ -137,8 +137,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
                     courserForWho = snapshot.data!.data!.forwho!;
                     courseWhatWillLearn = snapshot.data!.data!.whatWillLearn!;
                     courseInstructor = snapshot.data!.data!.user!.name!;
-                    courseInstructorImage =
-                        snapshot.data!.data!.user!.profilePicture!;
+                    courseInstructorImage = snapshot.data!.data!.user!.profilePicture!;
                     return Container(
                       child: Column(
                         children: [
@@ -214,7 +213,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
                               children: [
                                 Positioned(
                                   top: -50,
-                                  child: /* Container(
+                                  child: *//* Container(
                                           color: Colors.black,
                                           height: 180.h,
                                           width: 323.w,
@@ -224,7 +223,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
                                                     'https://vcourse.s3.ap-south-1.amazonaws.com/video1470406185.mp4'),
                                             looping: false,
                                           ),
-                                        )*/
+                                        )*//*
                                       Container(
                                     height: 180.h,
                                     width: 323.w,
@@ -436,7 +435,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
                   widgets[groupValue],
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -451,7 +450,7 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
         ),
       );
 
-  Widget InstructorCourse() {
+ /* Widget InstructorCourse() {
     return Card(
       child: SizedBox(
         width: double.maxFinite,
@@ -578,5 +577,5 @@ class _CourseDetailsByIdState extends State<CourseDetailsById> {
             );
           }
         });
-  }
+  }*/
 }

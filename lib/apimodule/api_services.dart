@@ -9,12 +9,13 @@ import 'package:vcourse/cousemodule/models/CourseModel.dart';
   class ApiServices{
 
     static var client=http.Client();
-    static var link=baseurl+'courses';
+    static var coursesLink=baseurl+'courses';
+    static var coursesDetailsLink=baseurl+'courses';
 
-    static Future<CourseModel> fetchCourses() async{
-      var response=await client.get(Uri.parse(link));
+    static Future<List<CourseModel>> fetchCourses() async{
+      var response=await client.get(Uri.parse(coursesLink));
       if(response.statusCode==200){
-        var data=response.body;
+        var data=jsonDecode(response.body);
         debugPrint("Response:$data");
         return courseModelFromJson(data);
       }else{
